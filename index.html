@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>liceo Bicentenario Gabriela Mistral</title>
+<link rel="icon" type="image/png" href="img/galeria/escudo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -14,7 +15,7 @@
 <header>
   <div class="nav-row">
     <a href="#inicio" class="brand">
-      <img src="img/galeria/hh.jpg" alt="Escudo Liceo Bicentenario Gabriela Mistral" onerror="this.style.display='none'">
+      <img src="img/galeria/escudo.jpg" alt="Escudo Liceo Bicentenario Gabriela Mistral" onerror="this.style.display='none'">
       <div class="brand-text">
         <strong>Liceo Bicentenario</strong>
         <span>Gabriela Mistral · Desde 1950</span>
@@ -24,6 +25,7 @@
       <ul>
         <li><a href="#nosotros" data-goto="nosotros">Nosotros</a></li>
         <li><a href="#admision" data-goto="admision">Admisión</a></li>
+        <li><a href="#normas" data-goto="normas">Normas y Deberes</a></li>
         <li><a href="#afterschool" data-goto="afterschool">After School</a></li>
         <li><a href="#galeria" data-goto="galeria">Galería</a></li>
         <li><a href="#noticias" data-goto="noticias">Noticias</a></li>
@@ -49,19 +51,26 @@
     <div>
       <p class="eyebrow">Liceo técnico-profesional · <span id="yearsCount">0</span> años formando</p>
       <h1>Se aprende con las manos, <em>con las letras</em> y con el futuro por delante.</h1>
-      <p class="lead">Formamos técnicos y personas desde 1950: ciencia, oficio y palabra en un mismo liceo, setenta y seis años formando manos que trabajan y mentes que piensan.</p>
+      <p class="lead">Setenta y seis años formando manos que trabajan y mentes que piensan. Tres generaciones de una misma familia se han sentado en estas salas — y todas salieron con un oficio, una palabra propia y un futuro con nombre.</p>
       <div class="hero-actions">
         <button class="btn btn-gold" data-goto="admision">Ver proceso de admisión</button>
         <button class="btn btn-outline" data-goto="nosotros">Conocer el liceo</button>
       </div>
     </div>
     <div class="seal">
-      <img src="img/galeria/hh.jpg" alt="Escudo del liceo" onerror="this.style.display='none'">
+      <img src="img/galeria/escudo.jpg" alt="Escudo del liceo" onerror="this.style.display='none'">
       <span class="since">EST. 1950</span>
     </div>
   </div>
   <div class="hero-wave" aria-hidden="true"></div>
 </section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Liceo técnico-profesional ◆ Bicentenario · desde 1950 ◆ Formación técnica y humanista ◆ Máfil, Los Ríos ◆</span>
+    <span>Liceo técnico-profesional ◆ Bicentenario · desde 1950 ◆ Formación técnica y humanista ◆ Máfil, Los Ríos ◆</span>
+  </div>
+</div>
 
 <!-- ===================== FICHA / TABS ===================== -->
 <div class="ficha-wrap wrap">
@@ -73,17 +82,20 @@
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="admision" id="tabbtn-admision">
       <span class="tab-index">02</span><span class="tab-name">Admisión</span>
     </button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="normas" id="tabbtn-normas">
+      <span class="tab-index">03</span><span class="tab-name">Normas y Deberes</span>
+    </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="afterschool" id="tabbtn-afterschool">
-      <span class="tab-index">03</span><span class="tab-name">After School</span>
+      <span class="tab-index">04</span><span class="tab-name">After School</span>
     </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="galeria" id="tabbtn-galeria">
-      <span class="tab-index">04</span><span class="tab-name">Galería</span>
+      <span class="tab-index">05</span><span class="tab-name">Galería</span>
     </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="noticias" id="tabbtn-noticias">
-      <span class="tab-index">05</span><span class="tab-name">Noticias</span>
+      <span class="tab-index">06</span><span class="tab-name">Noticias</span>
     </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="contacto" id="tabbtn-contacto">
-      <span class="tab-index">06</span><span class="tab-name">Contacto</span>
+      <span class="tab-index">07</span><span class="tab-name">Contacto</span>
     </button>
     <div class="tab-slider" id="tabSlider" aria-hidden="true"></div>
   </div>
@@ -204,6 +216,82 @@
     </div>
   </section>
 
+  <!-- ---------- NORMAS Y DEBERES DEL ESTUDIANTE ---------- -->
+  <section class="panel" id="normas" role="tabpanel" aria-labelledby="tabbtn-normas">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="divider"></div>
+        <p class="eyebrow">Normas y Deberes</p>
+        <h2>Convivencia y compromiso: así nos cuidamos entre todos</h2>
+        <p>Estas son las normas básicas de convivencia del liceo. El detalle completo está en el Reglamento Interno de Convivencia Escolar, disponible en secretaría y para descarga.</p>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="glyph g-navy">✓</div>
+          <h3>Derechos del estudiante</h3>
+          <ul class="as-list">
+            <li>Recibir una educación de calidad, en un ambiente seguro y de respeto.</li>
+            <li>Ser escuchado y participar en la vida escolar del liceo.</li>
+            <li>Acceder a apoyo pedagógico y psicosocial cuando lo necesite.</li>
+            <li>No ser discriminado por ningún motivo.</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <div class="glyph g-blue">◆</div>
+          <h3>Deberes del estudiante</h3>
+          <ul class="as-list">
+            <li>Asistir a clases con puntualidad y cumplir con sus tareas y evaluaciones.</li>
+            <li>Tratar con respeto a compañeros, docentes, asistentes y directivos.</li>
+            <li>Cuidar la infraestructura, el mobiliario y los materiales del liceo.</li>
+            <li>Contribuir a un ambiente de sana convivencia dentro y fuera del aula.</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <div class="glyph g-gold">👕</div>
+          <h3>Presentación personal</h3>
+          <ul class="as-list">
+            <li>Uso del uniforme oficial o buzo institucional, según corresponda al día.</li>
+            <li>Presentación personal limpia y ordenada.</li>
+            <li>Uso de delantal o cotona en enseñanza básica, según normativa interna.</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <div class="glyph g-green">◷</div>
+          <h3>Asistencia y puntualidad</h3>
+          <ul class="as-list">
+            <li>Asistencia mínima requerida según normativa del Ministerio de Educación.</li>
+            <li>Atrasos y ausencias deben justificarse en inspectoría con el apoderado.</li>
+            <li>Retiros durante la jornada solo con autorización del apoderado.</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <div class="glyph g-navy">@</div>
+          <h3>Uso de tecnología</h3>
+          <ul class="as-list">
+            <li>Celulares y dispositivos personales en modo silencioso durante la clase.</li>
+            <li>Uso de tecnología dentro del aula solo con autorización del docente.</li>
+            <li>Prohibido grabar o difundir imágenes de terceros sin su consentimiento.</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <div class="glyph g-blue">!</div>
+          <h3>Faltas y sanciones</h3>
+          <ul class="as-list">
+            <li><strong>Leves:</strong> atrasos, incumplimiento de tareas — se registran y se conversan con el estudiante.</li>
+            <li><strong>Graves:</strong> faltas de respeto, incumplimiento reiterado — se cita al apoderado.</li>
+            <li><strong>Gravísimas:</strong> violencia, acoso o daño a terceros — según protocolo de convivencia escolar.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="admission-cta">
+        <a href="#" class="btn btn-gold">Descargar Reglamento de Convivencia Escolar</a>
+        <button class="btn btn-outline" data-goto="contacto">Consultar con inspectoría</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ---------- AFTER SCHOOL ---------- -->
   <section class="panel" id="afterschool" role="tabpanel" aria-labelledby="tabbtn-afterschool">
     <div class="wrap">
@@ -260,31 +348,55 @@
         <div class="divider"></div>
         <p class="eyebrow">Noticias</p>
         <h2>Novedades del liceo</h2>
-        <p>Las últimas noticias del establecimiento y nuestras redes sociales, para no perderte nada. (Noticias de ejemplo — reemplázalas por las reales.)</p>
+        <p>Lo último del establecimiento y lo que compartimos en redes: actividades, reconocimientos y avisos importantes.</p>
+      </div>
+
+      <div class="follow-block">
+        <p class="eyebrow">Síguenos</p>
+        <h3>Todo lo que pasa en el liceo, también en tus redes</h3>
+        <p class="follow-sub">Fotos del día a día, actividades, reconocimientos de nuestros estudiantes y avisos urgentes — síguenos para no perderte nada.</p>
+        <div class="follow-cards">
+          <a class="follow-card follow-fb" href="https://web.facebook.com/Lgmistral" target="_blank" rel="noopener">
+            <span class="follow-ico">f</span>
+            <span class="follow-info">
+              <strong>Facebook</strong>
+              <span>Liceo Gabriela Mistral</span>
+            </span>
+            <span class="follow-arrow">↗</span>
+          </a>
+          <a class="follow-card follow-ig" href="https://www.instagram.com/liceo.bgm.m/" target="_blank" rel="noopener">
+            <span class="follow-ico">◎</span>
+            <span class="follow-info">
+              <strong>Instagram</strong>
+              <span>@liceo.bgm.m</span>
+            </span>
+            <span class="follow-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="events-block">
+        <div class="events-head">
+          <p class="eyebrow">Agenda</p>
+          <h3>Calendario de eventos</h3>
+        </div>
+        <div class="calendar" id="calendar">
+          <div class="calendar-top">
+            <button class="cal-nav" id="calPrev" type="button" aria-label="Mes anterior">‹</button>
+            <div class="calendar-title" id="calTitle">Agosto 2026</div>
+            <button class="cal-nav" id="calNext" type="button" aria-label="Mes siguiente">›</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid">
+            <!-- Se genera desde la lista EVENTS en java.js -->
+          </div>
+        </div>
       </div>
 
       <div class="news-grid" id="newsGrid">
         <!-- Se genera desde la lista NEWS en java.js -->
-      </div>
-
-      <div class="social-block">
-        <p class="eyebrow">Síguenos</p>
-        <div class="social-links">
-          <a class="social-link social-fb" href="https://www.facebook.com/" target="_blank" rel="noopener">
-            <span class="social-ico">f</span>
-            <span>
-              <strong>Facebook</strong>
-              <span>Completar con el link de la página del liceo</span>
-            </span>
-          </a>
-          <a class="social-link social-ig" href="https://www.instagram.com/" target="_blank" rel="noopener">
-            <span class="social-ico">◎</span>
-            <span>
-              <strong>Instagram</strong>
-              <span>Completar con el usuario del liceo</span>
-            </span>
-          </a>
-        </div>
       </div>
     </div>
   </section>

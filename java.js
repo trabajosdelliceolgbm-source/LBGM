@@ -103,7 +103,7 @@ document.querySelectorAll('[data-goto]').forEach(el => {
 // Estado inicial según el hash de la URL, si corresponde a una pestaña válida
 window.addEventListener('load', () => {
   const initial = window.location.hash.replace('#','');
-  const valid = ['nosotros','admision','afterschool','galeria','noticias','contacto'];
+  const valid = ['nosotros','admision','normas','afterschool','galeria','noticias','contacto'];
   if(valid.includes(initial) && initial !== 'nosotros'){
     activateTab(initial, { scroll:false, animate:false });
   } else {
@@ -289,36 +289,191 @@ document.addEventListener('keydown', (e) => {
 renderGalleryInto('afterSchoolGallery', AFTER_SCHOOL_GALLERY);
 renderGalleryInto('galleryGrid', LICEO_GALLERY);
 
-// ============ NOTICIAS ============
-// Para agregar una noticia: agrega un objeto a esta lista (arriba = más nueva).
+// ============ NOTICIAS, AGENDA Y REDES SOCIALES ============
+// Enlaces reales del liceo — se usan tanto en los botones de "Síguenos"
+// (en el HTML) como en las noticias que provienen de esas redes.
+const FB_URL = 'https://web.facebook.com/Lgmistral';
+const IG_URL = 'https://www.instagram.com/liceo.bgm.m/';
+
+// ---- AGENDA / CALENDARIO ----
+// Vacía por ahora — agrega aquí los eventos reales del liceo cuando los
+// tengas (reuniones, actos, fechas de matrícula, etc). Cada objeto:
+//   date          -> fecha exacta en formato 'AAAA-MM-DD', ej: '2026-09-05'
+//   tag/tagLabel  -> 'reunion' → 'Reunión', 'actividad' → 'Actividad', 'fecha' → 'Fecha clave'
+//   title / text  -> lo que quieras mostrar al hacer clic en el día
+// Puede haber varios eventos en la misma fecha; se listan todos.
+// Ejemplo (déjalo comentado como guía o bórralo cuando agregues el primero real):
+//   { date: '2026-09-05', tag: 'reunion', tagLabel: 'Reunión', title: 'Reunión de apoderados', text: '18:30 hrs, gimnasio del liceo.' },
+const EVENTS = [
+];
+
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const calTitle = document.getElementById('calTitle');
+const calendarGrid = document.getElementById('calendarGrid');
+const calPrev = document.getElementById('calPrev');
+const calNext = document.getElementById('calNext');
+
+const today = new Date();
+let calYear = today.getFullYear();
+let calMonth = today.getMonth(); // 0-indexado
+
+function isoDate(y, m, d){
+  return `${y}-${String(m + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+
+function eventsForDate(iso){
+  return EVENTS.filter(ev => ev.date === iso);
+}
+
+function closeDayDetail(){
+  const detail = document.getElementById('dayDetail');
+  detail?.remove();
+}
+
+function openDayDetail(iso, items){
+  closeDayDetail();
+  const calendar = document.getElementById('calendar');
+  if(!calendar) return;
+
+  const [y, m, d] = iso.split('-');
+  const dateLabel = `${d} de ${MESES[parseInt(m,10) - 1]} de ${y}`;
+
+  const detail = document.createElement('div');
+  detail.id = 'dayDetail';
+  detail.className = 'day-detail is-open';
+  detail.innerHTML = `
+    <button class="day-detail-close" type="button" aria-label="Cerrar">✕</button>
+    <span class="day-detail-date">${dateLabel}</span>
+    ${items.map(it => `
+      <div class="day-detail-item">
+        <h4>${it.title}</h4>
+        <p>${it.text || ''}</p>
+      </div>
+    `).join('')}
+  `;
+  calendar.appendChild(detail);
+  detail.querySelector('.day-detail-close')?.addEventListener('click', closeDayDetail);
+}
+
+function renderCalendar(){
+  if(!calendarGrid || !calTitle) return;
+  closeDayDetail();
+
+  calTitle.textContent = `${MESES[calMonth]} ${calYear}`;
+  calendarGrid.innerHTML = '';
+
+  const firstOfMonth = new Date(calYear, calMonth, 1);
+  // Lunes = 0 ... Domingo = 6 (para que la semana empiece en lunes, como en Chile)
+  const startOffset = (firstOfMonth.getDay() + 6) % 7;
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const daysInPrevMonth = new Date(calYear, calMonth, 0).getDate();
+
+  const todayIso = isoDate(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
+
+  for(let i = 0; i < totalCells; i++){
+    const dayNum = i - startOffset + 1;
+    const cell = document.createElement('div');
+
+    let cellYear = calYear, cellMonth = calMonth, cellDay = dayNum, isPad = false;
+    if(dayNum < 1){
+      isPad = true;
+      cellMonth = calMonth - 1 < 0 ? 11 : calMonth - 1;
+      cellYear = calMonth - 1 < 0 ? calYear - 1 : calYear;
+      cellDay = daysInPrevMonth + dayNum;
+    } else if(dayNum > daysInMonth){
+      isPad = true;
+      cellMonth = calMonth + 1 > 11 ? 0 : calMonth + 1;
+      cellYear = calMonth + 1 > 11 ? calYear + 1 : calYear;
+      cellDay = dayNum - daysInMonth;
+    }
+
+    const iso = isoDate(cellYear, cellMonth, cellDay);
+    const dayEvents = eventsForDate(iso);
+
+    cell.className = 'cal-cell' + (isPad ? ' is-pad' : '') + (iso === todayIso ? ' is-today' : '') + (dayEvents.length ? ' has-events' : '');
+
+    const dayEl = document.createElement('span');
+    dayEl.className = 'cal-day';
+    dayEl.textContent = cellDay;
+    cell.appendChild(dayEl);
+
+    if(dayEvents.length){
+      const tagsWrap = document.createElement('div');
+      tagsWrap.className = 'cal-tags';
+      dayEvents.slice(0, 2).forEach(ev => {
+        const tagEl = document.createElement('span');
+        tagEl.className = 'cal-tag tag-' + ev.tag;
+        tagEl.textContent = ev.title;
+        tagsWrap.appendChild(tagEl);
+      });
+      if(dayEvents.length > 2){
+        const more = document.createElement('span');
+        more.className = 'cal-more';
+        more.textContent = `+${dayEvents.length - 2} más`;
+        tagsWrap.appendChild(more);
+      }
+      cell.appendChild(tagsWrap);
+      cell.addEventListener('click', () => openDayDetail(iso, dayEvents));
+    }
+
+    calendarGrid.appendChild(cell);
+  }
+
+  if(EVENTS.length === 0){
+    calendarGrid.innerHTML = '<p class="cal-empty">Todavía no hay eventos agendados. Se irán marcando aquí a medida que se confirmen.</p>';
+  }
+}
+
+calPrev?.addEventListener('click', () => {
+  calMonth -= 1;
+  if(calMonth < 0){ calMonth = 11; calYear -= 1; }
+  renderCalendar();
+});
+calNext?.addEventListener('click', () => {
+  calMonth += 1;
+  if(calMonth > 11){ calMonth = 0; calYear += 1; }
+  renderCalendar();
+});
+
+renderCalendar();
+
+// ---- NOTICIAS ----
+// Vacía por ahora — agrega aquí las noticias reales del liceo (o cópialas
+// desde una publicación de Facebook/Instagram). Cada objeto:
+//   date              -> '22 ago 2026'
+//   title / text      -> lo que quieras mostrar
+//   tag (opcional)    -> 'Noticia', 'Actividad' o 'Reconocimiento' (esta
+//                        última se destaca en dorado, pensada para logros
+//                        de estudiantes).
+//   source (opcional) -> 'facebook' o 'instagram', si la noticia viene de
+//                        esa red. Muestra un link "Ver en ..." en la tarjeta.
+//   link (opcional)   -> URL directa a la publicación real. Si no la
+//                        tienes, usa FB_URL o IG_URL (van al perfil).
+// Ejemplo (déjalo comentado como guía o bórralo cuando agregues la primera real):
+//   { date: '22 ago 2026', title: '...', text: '...', tag: 'Reconocimiento', source: 'instagram', link: IG_URL, color: 'g2' },
 const NEWS = [
-  {
-    date: '01 sept 2026',
-    title: 'Inicio del proceso de admisión 2027',
-    text: 'Ya está disponible el calendario de postulación para el próximo año escolar. Revisa los plazos en la pestaña Admisión.',
-    color: 'g1',
-  },
-  {
-    date: '18 ago 2026',
-    title: 'Nuevos horarios de After School',
-    text: 'A partir de este mes, After School amplía su horario de atención para los cursos menores.',
-    color: 'g3',
-  },
-  {
-    date: '05 ago 2026',
-    title: 'Semana de la ciencia en el liceo',
-    text: 'Nuestros estudiantes de laboratorio presentaron proyectos experimentales abiertos a toda la comunidad.',
-    color: 'g2',
-  },
 ];
 
 function renderNews(){
   const grid = document.getElementById('newsGrid');
   if(!grid) return;
   grid.innerHTML = '';
+  if(NEWS.length === 0){
+    grid.innerHTML = '<p class="news-empty">Todavía no hay noticias publicadas aquí. Mientras tanto, revisa las novedades en nuestro Facebook e Instagram.</p>';
+    return;
+  }
   NEWS.forEach(item => {
     const card = document.createElement('article');
     card.className = 'news-card';
+
+    if(item.tag){
+      const tagEl = document.createElement('span');
+      tagEl.className = 'news-tag' + (item.tag === 'Reconocimiento' ? ' tag-reconocimiento' : '');
+      tagEl.textContent = item.tag;
+      card.appendChild(tagEl);
+    }
 
     const thumb = document.createElement('div');
     thumb.className = 'news-thumb ' + (item.color || 'g1');
@@ -327,6 +482,17 @@ function renderNews(){
     const body = document.createElement('div');
     body.className = 'news-body';
     body.innerHTML = `<span class="news-date">${item.date}</span><h3>${item.title}</h3><p>${item.text}</p>`;
+
+    if(item.source && item.link){
+      const srcLabel = item.source === 'facebook' ? 'Ver en Facebook' : 'Ver en Instagram';
+      const srcLink = document.createElement('a');
+      srcLink.className = 'news-source src-' + item.source;
+      srcLink.href = item.link;
+      srcLink.target = '_blank';
+      srcLink.rel = 'noopener';
+      srcLink.innerHTML = `${srcLabel} <span class="src-arrow">↗</span>`;
+      body.appendChild(srcLink);
+    }
 
     card.append(thumb, body);
     grid.appendChild(card);
