@@ -14,7 +14,7 @@
 <header>
   <div class="nav-row">
     <a href="#inicio" class="brand">
-      <img src="img/hh.jpg" alt="Escudo Liceo Bicentenario Gabriela Mistral" onerror="this.style.display='none'">
+      <img src="img/galeria/hh.jpg" alt="Escudo Liceo Bicentenario Gabriela Mistral" onerror="this.style.display='none'">
       <div class="brand-text">
         <strong>Liceo Bicentenario</strong>
         <span>Gabriela Mistral · Desde 1950</span>
@@ -26,6 +26,7 @@
         <li><a href="#admision" data-goto="admision">Admisión</a></li>
         <li><a href="#afterschool" data-goto="afterschool">After School</a></li>
         <li><a href="#galeria" data-goto="galeria">Galería</a></li>
+        <li><a href="#noticias" data-goto="noticias">Noticias</a></li>
         <li><a href="#contacto" data-goto="contacto">Contacto</a></li>
       </ul>
     </nav>
@@ -33,6 +34,15 @@
     <button class="burger" aria-label="Abrir menú" id="burgerBtn"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<!-- Transición cinematográfica entre pestañas -->
+<div class="tab-transition" id="tabTransition" aria-hidden="true">
+  <div class="tt-sweep"></div>
+  <div class="tt-mark">
+    <span class="tt-index" id="ttIndex">01</span>
+    <span class="tt-name" id="ttName">Nosotros</span>
+  </div>
+</div>
 
 <section class="hero" id="inicio">
   <div class="hero-inner">
@@ -46,7 +56,7 @@
       </div>
     </div>
     <div class="seal">
-      <img src="img/hh.jpg" alt="Escudo del liceo" onerror="this.style.display='none'">
+      <img src="img/galeria/hh.jpg" alt="Escudo del liceo" onerror="this.style.display='none'">
       <span class="since">EST. 1950</span>
     </div>
   </div>
@@ -69,8 +79,11 @@
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="galeria" id="tabbtn-galeria">
       <span class="tab-index">04</span><span class="tab-name">Galería</span>
     </button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="noticias" id="tabbtn-noticias">
+      <span class="tab-index">05</span><span class="tab-name">Noticias</span>
+    </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-tab="contacto" id="tabbtn-contacto">
-      <span class="tab-index">05</span><span class="tab-name">Contacto</span>
+      <span class="tab-index">06</span><span class="tab-name">Contacto</span>
     </button>
     <div class="tab-slider" id="tabSlider" aria-hidden="true"></div>
   </div>
@@ -213,23 +226,65 @@
           <div>♫</div><div>★</div><div>▢</div>
         </div>
       </div>
+
+      <div class="as-gallery-head">
+        <div class="divider"></div>
+        <p class="eyebrow">Galería After School</p>
+        <h3>Así se ve un día en After School</h3>
+      </div>
+      <div class="gallery-grid gallery-grid--compact" id="afterSchoolGallery">
+        <!-- Fotos generadas desde la lista AFTER_SCHOOL_GALLERY en java.js -->
+      </div>
     </div>
   </section>
 
-  <!-- ---------- GALERIA ---------- -->
+  <!-- ---------- GALERIA DEL LICEO (general) ---------- -->
   <section class="panel" id="galeria" role="tabpanel" aria-labelledby="tabbtn-galeria">
     <div class="wrap">
       <div class="section-head">
         <div class="divider"></div>
-        <p class="eyebrow">Galería</p>
+        <p class="eyebrow">Galería del Liceo</p>
         <h2>La vida diaria del liceo</h2>
-        <p>Un vistazo a los espacios y actividades que forman parte del día a día de nuestros estudiantes. Toca una imagen para verla en grande.</p>
+        <p>Un vistazo a las salas, talleres y actividades generales del establecimiento. Toca una imagen para verla en grande. (Fotos de ejemplo — súbelas cuando tengas las reales.)</p>
       </div>
       <div class="gallery-grid" id="galleryGrid">
-        <button class="gallery-item g1" data-caption="Salas de clase"><span>Salas de clase</span></button>
-        <button class="gallery-item g2" data-caption="Laboratorio de ciencias"><span>Laboratorio de ciencias</span></button>
-        <button class="gallery-item g3" data-caption="Talleres técnicos"><span>Talleres técnicos</span></button>
-        <button class="gallery-item g4" data-caption="Actividades After School"><span>Actividades After School</span></button>
+        <!-- Las fotos se generan automáticamente desde la lista LICEO_GALLERY en java.js, en ese mismo orden. -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- NOTICIAS ---------- -->
+  <section class="panel" id="noticias" role="tabpanel" aria-labelledby="tabbtn-noticias">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="divider"></div>
+        <p class="eyebrow">Noticias</p>
+        <h2>Novedades del liceo</h2>
+        <p>Las últimas noticias del establecimiento y nuestras redes sociales, para no perderte nada. (Noticias de ejemplo — reemplázalas por las reales.)</p>
+      </div>
+
+      <div class="news-grid" id="newsGrid">
+        <!-- Se genera desde la lista NEWS en java.js -->
+      </div>
+
+      <div class="social-block">
+        <p class="eyebrow">Síguenos</p>
+        <div class="social-links">
+          <a class="social-link social-fb" href="https://www.facebook.com/" target="_blank" rel="noopener">
+            <span class="social-ico">f</span>
+            <span>
+              <strong>Facebook</strong>
+              <span>Completar con el link de la página del liceo</span>
+            </span>
+          </a>
+          <a class="social-link social-ig" href="https://www.instagram.com/" target="_blank" rel="noopener">
+            <span class="social-ico">◎</span>
+            <span>
+              <strong>Instagram</strong>
+              <span>Completar con el usuario del liceo</span>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -254,7 +309,7 @@
           </div>
           <div class="info-row">
             <div class="ico">⌂</div>
-            <div><strong>Dirección</strong><span>Completar con la dirección del liceo</span></div>
+            <div><strong>Dirección</strong><span>Bernardo O'Higgins #306, Máfil, Los Ríos, Chile</span></div>
           </div>
           <div class="info-row">
             <div class="ico">◷</div>
@@ -279,6 +334,25 @@
           <p class="form-success" id="formSuccess" role="status"></p>
         </form>
       </div>
+
+      <div class="map-block">
+        <div class="map-head">
+          <p class="eyebrow">Cómo llegar</p>
+          <h3>Bernardo O'Higgins #306, Máfil, Los Ríos</h3>
+          <a class="btn btn-outline map-btn" href="https://www.google.com/maps/dir/?api=1&destination=Bernardo+O%27Higgins+306%2C+M%C3%A1fil%2C+Los+R%C3%ADos%2C+Chile" target="_blank" rel="noopener">
+            Abrir ruta en Google Maps ↗
+          </a>
+        </div>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps?q=Bernardo+O%27Higgins+306,+M%C3%A1fil,+Los+R%C3%ADos,+Chile&output=embed"
+            width="100%" height="100%" style="border:0;"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación del Liceo Bicentenario Gabriela Mistral en el mapa">
+          </iframe>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -287,9 +361,12 @@
 <!-- Lightbox de galería -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">‹</button>
   <div class="lightbox-box" id="lightboxBox">
-    <span id="lightboxCaption"></span>
+    <img id="lightboxImg" src="" alt="">
+    <span id="lightboxCaption" class="lightbox-caption"></span>
   </div>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Foto siguiente">›</button>
 </div>
 
 <footer>
