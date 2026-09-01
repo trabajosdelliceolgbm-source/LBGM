@@ -1,0 +1,27 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#4C74B8"/>
+  <circle cx="350" cy="260" r="90" fill="#ffffff" opacity="0.08"/>
+  <circle cx="40" cy="40" r="60" fill="#ffffff" opacity="0.08"/>
+  <circle cx="60" cy="240" r="9" fill="#ffffff" opacity="0.25"/>
+  <circle cx="330" cy="60" r="12" fill="#ffffff" opacity="0.2"/>
+
+  <!-- stacked blocks -->
+  <g>
+    <rect x="90" y="150" width="70" height="70" rx="10" fill="#FFFDF8"/>
+    <text x="125" y="198" font-family="'IBM Plex Mono',monospace" font-size="34" font-weight="700" fill="#4C74B8" text-anchor="middle">A</text>
+
+    <rect x="170" y="110" width="70" height="70" rx="10" fill="#E8AA1E"/>
+    <text x="205" y="158" font-family="'IBM Plex Mono',monospace" font-size="34" font-weight="700" fill="#FFFDF8" text-anchor="middle">B</text>
+
+    <rect x="250" y="150" width="70" height="70" rx="10" fill="#E4693B"/>
+    <circle cx="285" cy="185" r="18" fill="#FFFDF8"/>
+  </g>
+
+  <!-- smiling sun -->
+  <g transform="translate(200,60)">
+    <circle cx="0" cy="0" r="30" fill="#FFFDF8"/>
+    <circle cx="-10" cy="-6" r="3.5" fill="#4C74B8"/>
+    <circle cx="10" cy="-6" r="3.5" fill="#4C74B8"/>
+    <path d="M -12 8 Q 0 20 12 8" stroke="#4C74B8" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

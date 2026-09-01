@@ -1,0 +1,19 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#E4693B"/>
+  <circle cx="360" cy="260" r="80" fill="#ffffff" opacity="0.08"/>
+  <circle cx="40" cy="40" r="70" fill="#ffffff" opacity="0.08"/>
+
+  <!-- paper cutout star -->
+  <g transform="translate(150,150)">
+    <path d="M0,-70 L18,-22 68,-22 28,8 44,58 0,28 -44,58 -28,8 -68,-22 -18,-22 Z"
+      fill="#FFFDF8" opacity="0.95"/>
+  </g>
+
+  <!-- scissors -->
+  <g transform="translate(210,110) rotate(20)">
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#FFFDF8" stroke-width="8"/>
+    <circle cx="0" cy="60" r="16" fill="none" stroke="#FFFDF8" stroke-width="8"/>
+    <line x1="10" y1="10" x2="95" y2="90" stroke="#FFFDF8" stroke-width="9" stroke-linecap="round"/>
+    <line x1="10" y1="50" x2="95" y2="-30" stroke="#FFFDF8" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

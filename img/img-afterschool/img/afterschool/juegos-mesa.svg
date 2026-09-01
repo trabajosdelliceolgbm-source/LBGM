@@ -1,0 +1,25 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#2E5AA8"/>
+  <circle cx="30" cy="260" r="90" fill="#ffffff" opacity="0.07"/>
+  <circle cx="370" cy="30" r="70" fill="#ffffff" opacity="0.07"/>
+
+  <!-- checkered board -->
+  <g transform="translate(60,190)">
+    <g fill="#FFFDF8">
+      <rect x="0" y="0" width="40" height="40"/>
+      <rect x="80" y="0" width="40" height="40"/>
+      <rect x="160" y="0" width="40" height="40"/>
+      <rect x="240" y="0" width="40" height="40"/>
+      <rect x="40" y="0" width="40" height="40" opacity="0.35"/>
+      <rect x="120" y="0" width="40" height="40" opacity="0.35"/>
+      <rect x="200" y="0" width="40" height="40" opacity="0.35"/>
+    </g>
+  </g>
+
+  <!-- pawn -->
+  <g transform="translate(160,55)">
+    <circle cx="40" cy="30" r="24" fill="#FFFDF8"/>
+    <path d="M14 78 Q40 55 66 78 L74 110 Q40 122 6 110 Z" fill="#FFFDF8"/>
+    <rect x="0" y="108" width="80" height="16" rx="6" fill="#FFFDF8"/>
+  </g>
+</svg>

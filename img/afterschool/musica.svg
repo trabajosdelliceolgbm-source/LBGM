@@ -1,0 +1,24 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#E8AA1E"/>
+  <circle cx="40" cy="260" r="90" fill="#ffffff" opacity="0.08"/>
+  <circle cx="360" cy="40" r="70" fill="#ffffff" opacity="0.08"/>
+
+  <!-- guitar silhouette -->
+  <g transform="translate(140,60)">
+    <path d="M40 0 C20 0 10 20 14 40 C4 46 0 60 6 74 C-2 84 -2 104 12 116
+             C6 132 12 152 32 158 C36 172 56 178 68 168
+             C88 172 104 156 100 138 C112 130 116 112 106 100
+             C112 88 108 70 94 64 C96 46 84 30 66 30 C64 12 54 0 40 0 Z"
+      fill="#FFFDF8" opacity="0.95"/>
+    <circle cx="52" cy="112" r="20" fill="#E8AA1E"/>
+    <rect x="46" y="-26" width="12" height="40" rx="4" fill="#FFFDF8"/>
+  </g>
+
+  <!-- notes -->
+  <g fill="#FFFDF8">
+    <circle cx="300" cy="90" r="12"/>
+    <rect x="309" y="30" width="6" height="60"/>
+    <circle cx="335" cy="180" r="9"/>
+    <rect x="342" y="140" width="5" height="42"/>
+  </g>
+</svg>

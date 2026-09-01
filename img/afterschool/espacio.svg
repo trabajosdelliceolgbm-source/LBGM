@@ -1,0 +1,16 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#4C74B8"/>
+  <circle cx="40" cy="260" r="80" fill="#ffffff" opacity="0.08"/>
+  <circle cx="360" cy="40" r="70" fill="#ffffff" opacity="0.08"/>
+
+  <!-- house -->
+  <g transform="translate(130,60)">
+    <polygon points="70,0 150,60 130,60 130,80 10,80 10,60 -10,60" fill="#FFFDF8"/>
+    <rect x="10" y="60" width="120" height="110" fill="#FFFDF8"/>
+    <rect x="30" y="90" width="30" height="30" rx="4" fill="#4C74B8"/>
+    <rect x="90" y="90" width="30" height="30" rx="4" fill="#4C74B8"/>
+    <rect x="58" y="128" width="24" height="42" rx="4" fill="#E8AA1E"/>
+    <circle cx="45" cy="105" r="3" fill="#FFFDF8"/>
+    <circle cx="105" cy="105" r="3" fill="#FFFDF8"/>
+  </g>
+</svg>
