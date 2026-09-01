@@ -58,6 +58,9 @@
 </div>
 
 <section class="hero" id="inicio">
+  <div class="hero-bg" id="heroBg" aria-hidden="true">
+    <div class="hero-bg-slide active" style="background-image:url('img/hero/01-fachada-liceo.jpg')"></div>
+  </div>
   <div class="hero-inner">
     <div>
       <p class="eyebrow">Liceo técnico-profesional · <span id="yearsCount">0</span> años formando</p>
@@ -66,6 +69,10 @@
       <div class="hero-actions">
         <button class="btn btn-gold" data-goto="admision">Ver proceso de admisión</button>
         <button class="btn btn-outline" data-goto="nosotros">Conocer el liceo</button>
+      </div>
+      <div class="hero-lemas" id="heroLemas">
+        <p class="hero-lemas-eyebrow">Nuestro sello</p>
+        <p class="hero-lemas-text" id="heroLemaText">Se aprende con las manos, con las letras y con el futuro por delante.</p>
       </div>
     </div>
     <div class="seal">
@@ -414,16 +421,97 @@
               </div>
             </div>
           </div>
-          <div class="as-visual" id="asVisual">
-            <button class="as-icon" type="button" aria-label="Hora de tareas">✎</button>
-            <button class="as-icon" type="button" aria-label="Organización del día">▦</button>
-            <button class="as-icon" type="button" aria-label="Juego libre">☺</button>
-            <button class="as-icon" type="button" aria-label="Juegos de mesa">♟</button>
-            <div class="as-center" aria-hidden="true">AS</div>
-            <button class="as-icon" type="button" aria-label="Manualidades">✂</button>
-            <button class="as-icon" type="button" aria-label="Música">♫</button>
-            <button class="as-icon" type="button" aria-label="Reconocimientos">★</button>
-            <button class="as-icon" type="button" aria-label="El espacio After School">▢</button>
+          <div class="as-visual-wrap">
+            <div class="as-visual" id="asVisual">
+              <button class="as-icon" type="button" aria-label="Hora de tareas">✎</button>
+              <button class="as-icon" type="button" aria-label="Organización del día">▦</button>
+              <button class="as-icon" type="button" aria-label="Juego libre">☺</button>
+              <button class="as-icon" type="button" aria-label="Juegos de mesa">♟</button>
+              <div class="as-center" aria-hidden="true">AS</div>
+              <button class="as-icon" type="button" aria-label="Manualidades">✂</button>
+              <button class="as-icon" type="button" aria-label="Música">♫</button>
+              <button class="as-icon" type="button" aria-label="Reconocimientos">★</button>
+              <button class="as-icon" type="button" aria-label="El espacio After School">▢</button>
+            </div>
+            <div class="as-visual-fill">
+              <div class="as-visual-quote">
+                <span class="as-visual-quote-icon">🧩</span>
+                <p>Cada ícono representa una de las actividades que se viven día a día en After School.</p>
+              </div>
+              <div class="as-visual-stats">
+                <div class="as-visual-stat"><strong>2</strong><span>días a la semana</span></div>
+                <div class="as-visual-stat"><strong>1,5</strong><span>horas por sesión</span></div>
+                <div class="as-visual-stat"><strong>100%</strong><span>supervisado</span></div>
+              </div>
+              <div class="as-visual-photo">
+                <img src="img/hero/03-fachada-liceo-lateral.jpg" alt="Fachada del Liceo Bicentenario Gabriela Mistral">
+                <span>El liceo, sede de este programa</span>
+              </div>
+              <div class="as-visual-checklist">
+                <h4>Lo que incluye cada sesión</h4>
+                <ul>
+                  <li><span>✓</span> Apoyo con tareas y trabajos pendientes</li>
+                  <li><span>✓</span> Juego libre y actividades recreativas</li>
+                  <li><span>✓</span> Merienda y espacio de descanso</li>
+                  <li><span>✓</span> Entrega segura a los apoderados</li>
+                </ul>
+              </div>
+              <a class="as-visual-mention" href="https://www.instagram.com/fundacion99?igsi=aGJ2ZGxlMTg2dng3" target="_blank" rel="noopener">
+                <span>◎</span>
+                <div><strong>Con el apoyo de Fundación 99</strong><span>Conoce más en la sección Convenio</span></div>
+                <span class="arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recuadro con el equipo a cargo del programa. Para actualizar los
+             nombres de las y los estudiantes en práctica, reemplaza los
+             "Nombre Apellido" de abajo por los nombres reales. Puedes
+             agregar o quitar tarjetas .as-team-member según cuántas
+             personas estén a cargo cada semestre. -->
+        <div class="as-team-card" id="asEquipo">
+          <div class="as-team-head">
+            <span class="as-team-icon">👥</span>
+            <div>
+              <h3>Equipo a cargo del programa</h3>
+              <p>Quiénes acompañan a los niños y niñas durante cada sesión de After School.</p>
+            </div>
+          </div>
+          <div class="as-team-chips">
+            <span class="as-team-chip">🗓 Miércoles y jueves</span>
+            <span class="as-team-chip">🎓 Especialidad Atención de Párvulos</span>
+            <span class="as-team-chip">👩‍🏫 Supervisión profesional permanente</span>
+          </div>
+          <div class="as-team-grid">
+            <div class="as-team-member as-team-member--lead">
+              <div class="as-team-avatar">👩‍🏫</div>
+              <strong>Caroline Navarrete</strong>
+              <span>Educadora de párvulos · Encargada del programa</span>
+              <span class="as-team-tag">Coordinación general</span>
+            </div>
+            <div class="as-team-member">
+              <div class="as-team-avatar">🧑‍🎓</div>
+              <strong>Nombre Apellido</strong>
+              <span>Estudiante en práctica · Atención de Párvulos</span>
+              <span class="as-team-tag">Apoyo en tareas</span>
+            </div>
+            <div class="as-team-member">
+              <div class="as-team-avatar">🧑‍🎓</div>
+              <strong>Nombre Apellido</strong>
+              <span>Estudiante en práctica · Atención de Párvulos</span>
+              <span class="as-team-tag">Juegos y recreación</span>
+            </div>
+            <div class="as-team-member">
+              <div class="as-team-avatar">🧑‍🎓</div>
+              <strong>Nombre Apellido</strong>
+              <span>Estudiante en práctica · Atención de Párvulos</span>
+              <span class="as-team-tag">Arte y manualidades</span>
+            </div>
+          </div>
+          <div class="as-team-footer">
+            <span>✉</span>
+            <p>¿Buscas contactar directamente al equipo? Escríbenos en la pestaña <strong>Contacto</strong> del programa.</p>
           </div>
         </div>
       </div>
@@ -470,7 +558,7 @@
             </div>
             <div class="info-row">
               <div class="ico ico-coral">☎</div>
-              <div><strong>Teléfono</strong><span>+56 9 5416 1156</span></div>
+              <div><strong>Teléfono</strong><span>+56 2 2XXX XXXX</span></div>
             </div>
             <div class="info-row">
               <div class="ico ico-coral">🕓</div>

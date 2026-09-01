@@ -192,6 +192,68 @@ if(yearsEl){
   animateCount(yearsEl, currentYear - 1950, 1200);
 }
 
+// ============ HERO: FOTOS DE FONDO ============
+// La primera foto ya está puesta directamente en el HTML (así se ve
+// siempre, aunque el navegador tarde en cargar este script). Acá solo se
+// agregan fotos EXTRA — si hay al menos una, se arma la rotación entre
+// todas (la del HTML + estas). Para agregar más fotos: súbelas a img/hero/
+// (mismo criterio que LICEO_GALLERY, más abajo) y agrégalas aquí.
+//   Ej: { src: 'img/hero/03-patio.jpg' },
+const HERO_SLIDES = [
+  { src: 'img/hero/02-fachada-calle.jpg' },
+  { src: 'img/hero/03-fachada-liceo-lateral.jpg' },
+  { src: 'img/hero/04-acceso-liceo.jpg' },
+];
+
+function renderHeroBg(){
+  const wrap = document.getElementById('heroBg');
+  if(!wrap) return;
+  HERO_SLIDES.forEach(slide => {
+    const div = document.createElement('div');
+    div.className = 'hero-bg-slide';
+    div.style.backgroundImage = `url('${slide.src}')`;
+    wrap.appendChild(div);
+  });
+  const slides = wrap.querySelectorAll('.hero-bg-slide');
+  if(slides.length > 1){
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 6500);
+  }
+}
+renderHeroBg();
+
+// ============ HERO: LEMAS DEL LICEO ============
+// Frases cortas que van rotando dentro del recuadro del hero. Agrega,
+// quita o reescribe las que quieras — se muestran en el mismo orden.
+const HERO_LEMAS = [
+  'Se aprende con las manos, con las letras y con el futuro por delante.',
+  '76 años formando técnicos con oficio, palabra y futuro.',
+  'Tres generaciones de una misma familia, un mismo compromiso con Máfil.',
+  'Formación técnica y humanista, desde 1950.',
+  'Manos que trabajan, mentes que piensan.'
+];
+
+function renderHeroLemas(){
+  const el = document.getElementById('heroLemaText');
+  if(!el || HERO_LEMAS.length === 0) return;
+  el.textContent = HERO_LEMAS[0];
+  if(HERO_LEMAS.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    el.classList.add('is-swapping');
+    setTimeout(() => {
+      i = (i + 1) % HERO_LEMAS.length;
+      el.textContent = HERO_LEMAS[i];
+      el.classList.remove('is-swapping');
+    }, 500);
+  }, 5000);
+}
+renderHeroLemas();
+
 // Estadísticas de "Nosotros": se animan una sola vez, cuando la pestaña se abre
 let statsAnimated = false;
 function maybeAnimateStats(){
