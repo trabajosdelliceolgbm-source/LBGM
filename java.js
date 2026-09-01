@@ -60,10 +60,15 @@ function runTabTransition(targetBtn, onCovered){
   }, SWEEP_TOTAL + 20));
 }
 
-function activateTab(tabName, { scroll = true, animate = true } = {}){
+function activateTab(tabName, { scroll = true, animate = true, onDone } = {}){
   const targetBtn = document.getElementById('tabbtn-' + tabName);
   if(!targetBtn) return;
-  if(targetBtn.classList.contains('active')) return;
+
+  // Si ya estamos en esa pestaña, igual podemos saltar a una sub-sección (submenú After School)
+  if(targetBtn.classList.contains('active')){
+    if(onDone) requestAnimationFrame(onDone);
+    return;
+  }
 
   function swapContent(){
     tabButtons.forEach(b => {
@@ -74,6 +79,7 @@ function activateTab(tabName, { scroll = true, animate = true } = {}){
     panels.forEach(p => p.classList.toggle('active', p.id === tabName));
     moveSlider(targetBtn);
     history.replaceState(null, '', '#' + tabName);
+    if(onDone) requestAnimationFrame(onDone);
   }
 
   if(scroll){
@@ -91,13 +97,66 @@ tabButtons.forEach(btn => {
   btn.addEventListener('click', () => activateTab(btn.dataset.tab));
 });
 
+// ============ SUB-PESTAÑAS INTERNAS DE AFTER SCHOOL ============
+// Independientes del sistema de pestañas principal: "Información", "Avisos", "Galería" y "Contacto"
+const asSubtabButtons = document.querySelectorAll('.as-subtab-btn');
+const asSubpanels = document.querySelectorAll('.as-subpanel');
+
+function activateAsSubtab(name){
+  if(!name) return;
+  const targetBtn = document.getElementById('assubbtn-' + name);
+  if(!targetBtn) return;
+  asSubtabButtons.forEach(b => {
+    const isMatch = b.dataset.assub === name;
+    b.classList.toggle('active', isMatch);
+    b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+  });
+  asSubpanels.forEach(p => {
+    const isMatch = p.id === 'as' + name.charAt(0).toUpperCase() + name.slice(1);
+    p.classList.toggle('active', isMatch);
+    p.hidden = !isMatch;
+  });
+}
+asSubtabButtons.forEach(btn => {
+  btn.addEventListener('click', () => activateAsSubtab(btn.dataset.assub));
+});
+
 // Cualquier elemento con data-goto navega a una pestaña
+// (si además trae data-scrollto, después de cambiar de pestaña salta a esa sub-sección;
+// si trae data-assub, primero cambia la sub-pestaña de After School correspondiente)
 document.querySelectorAll('[data-goto]').forEach(el => {
   el.addEventListener('click', (e) => {
     e.preventDefault();
-    activateTab(el.dataset.goto);
+    if(el.dataset.assub) activateAsSubtab(el.dataset.assub);
+    const scrollToId = el.dataset.scrollto;
+    activateTab(el.dataset.goto, {
+      scroll: !scrollToId,
+      onDone: scrollToId ? () => {
+        document.getElementById(scrollToId)?.scrollIntoView({ behavior:'smooth', block:'start' });
+      } : undefined
+    });
     mainNav?.classList.remove('open');
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
   });
+});
+
+// ============ SUBMENÚ "AFTER SCHOOL" ============
+// La flechita ▾ abre/cierra el submenú (clic, no solo hover) — clave en celular,
+// donde no existe el hover. En escritorio el hover ya lo abre por CSS.
+document.querySelectorAll('.nav-caret').forEach(caret => {
+  caret.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const dropdown = caret.closest('.nav-dropdown');
+    const wasOpen = dropdown.classList.contains('open');
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+    dropdown.classList.toggle('open', !wasOpen);
+  });
+});
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.nav-dropdown')){
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+  }
 });
 
 // Estado inicial según el hash de la URL, si corresponde a una pestaña válida
@@ -170,16 +229,32 @@ document.querySelectorAll('.step-head').forEach(head => {
 // Abre el primer paso por defecto
 document.querySelector('.step[data-step="1"]')?.classList.add('open');
 
+// ============ ACORDEÓN "SOBRE EL PROGRAMA" (After School) ============
+document.querySelectorAll('.as-acc-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.as-acc-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.as-acc-item').forEach(i => i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+
 // ============ GALERÍAS / LIGHTBOX ============
 // Hay dos galerías separadas. Para agregar o reordenar fotos en cualquiera
 // de las dos: solo edita la lista correspondiente. El orden en que aparecen
 // aquí es el orden en que se muestran en la página.
-// "src" apunta al archivo dentro de img/galeria/ (mismo nombre que el archivo subido).
+// "src"/"images" apuntan a archivos dentro de img/galeria/ (mismo nombre que el archivo subido).
+//
+// Cada tarjeta puede tener UNA foto o VARIAS:
+//   { src: 'img/galeria/archivo.jpg', caption: 'Texto' }                                 -> una sola foto
+//   { images: ['img/galeria/a.jpg', 'img/galeria/b.jpg'], caption: 'Texto' }              -> varias fotos
+// Si una tarjeta tiene varias fotos, en la página aparecen flechitas ‹ › y puntitos
+// para pasar entre ellas sin salir de la tarjeta; al hacer clic se abren todas
+// en grande, y ahí las flechas del visor recorren TODA la galería en orden.
 
 // Galería de After School (dentro de la pestaña After School)
 const AFTER_SCHOOL_GALLERY = [
-  { src: 'img/galeria/01-rincon-de-juego.jpg',              caption: 'Rincón de Juego' },
-  { src: 'img/galeria/02-rincon-de-juego-mesas.jpg',        caption: 'Rincón de Juego' },
+  { images: ['img/galeria/01-rincon-de-juego.jpg', 'img/galeria/02-rincon-de-juego-mesas.jpg'], caption: 'Rincón de Juego' },
   { src: 'img/galeria/08-ordenando-rincon-de-juego.jpg',    caption: 'Ordenando el Rincón de Juego' },
   { src: 'img/galeria/03-rincon-del-arte.jpg',              caption: 'Rincón del Arte' },
   { src: 'img/galeria/04-hora-del-cuento.jpg',              caption: 'Hora del cuento' },
@@ -197,34 +272,118 @@ const LICEO_GALLERY = [
   { src: 'img/galeria-liceo/04-talleres.jpg',          caption: 'Talleres técnicos' },
 ];
 
+// ---------- ÍCONOS DE LA CUADRÍCULA "AS" (After School) ----------
+// Cada ícono de la cuadrícula abre una imagen relacionada al hacer clic.
+// Por ahora usan ilustraciones propias (SVG) que conservan el color de cada
+// casilla — puedes reemplazarlas por fotos reales cuando las tengas: solo
+// sube el archivo a img/afterschool/ y cambia el "src" de más abajo (puede
+// ser .jpg, .png o .svg). El orden debe calzar con los íconos en index.html
+// (✎ tareas, ▦ agenda, ☺ juego libre, ♟ juegos de mesa, ✂ manualidades, ♫ música, ★ reconocimientos, ▢ el espacio).
+const AS_ICON_MEDIA = [
+  { src: 'img/afterschool/tareas.svg',        caption: 'Hora de tareas — un momento acompañado para avanzar en las tareas del día.' },
+  { src: 'img/afterschool/agenda.svg',        caption: 'Organización del día — planificamos juntos las actividades de la jornada.' },
+  { src: 'img/afterschool/juego-libre.svg',   caption: 'Juego libre — tiempo de recreación y juego dentro del liceo.' },
+  { src: 'img/afterschool/juegos-mesa.svg',   caption: 'Juegos de mesa — ajedrez, damas y otros juegos para pensar en grupo.' },
+  { src: 'img/afterschool/manualidades.svg',  caption: 'Manualidades — actividades creativas con distintos materiales.' },
+  { src: 'img/afterschool/musica.svg',        caption: 'Música — canciones y ritmo como parte de las experiencias del día.' },
+  { src: 'img/afterschool/logros.svg',        caption: 'Reconocimientos — celebramos los logros y avances de cada niño o niña.' },
+  { src: 'img/afterschool/espacio.svg',       caption: 'El espacio After School — un lugar cálido y seguro para esperar.' },
+];
+
 const fallbackClasses = ['g1','g2','g3','g4','g5','g6'];
 
-function renderGalleryInto(containerId, list){
+// Acepta tarjetas con "src" (una foto) o "images" (varias fotos) por igual.
+function normalizeGalleryList(list){
+  return list.map(entry => ({
+    ...entry,
+    images: (entry.images && entry.images.length) ? entry.images : (entry.src ? [entry.src] : []),
+  }));
+}
+
+function renderGalleryInto(containerId, rawList){
   const grid = document.getElementById(containerId);
   if(!grid) return;
   grid.innerHTML = '';
-  list.forEach((photo, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'gallery-item';
-    btn.dataset.caption = photo.caption;
-    btn.dataset.src = photo.src;
+
+  const list = normalizeGalleryList(rawList);
+
+  // Aplana todas las fotos de la galería, en orden, para que el visor grande
+  // pueda recorrerlas todas con las flechas (no solo las de una tarjeta).
+  const flat = [];
+  list.forEach(entry => {
+    entry._flatStart = flat.length;
+    entry.images.forEach(src => flat.push({ src, caption: entry.caption }));
+  });
+
+  list.forEach((entry, i) => {
+    const imgs = entry.images;
+    let current = 0;
+
+    const card = document.createElement('div');
+    card.className = 'gallery-item' + (imgs.length > 1 ? ' has-multi' : '');
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', 'Ver foto: ' + entry.caption);
 
     const img = document.createElement('img');
-    img.src = photo.src;
-    img.alt = photo.caption;
+    img.src = imgs[0] || '';
+    img.alt = entry.caption;
     img.loading = 'lazy';
     // Si el archivo todavía no existe, se ve un degradado en vez de un ícono roto
     img.addEventListener('error', () => {
-      btn.classList.add('g-fallback', fallbackClasses[i % fallbackClasses.length]);
+      card.classList.add('g-fallback', fallbackClasses[i % fallbackClasses.length]);
     });
 
     const span = document.createElement('span');
-    span.textContent = photo.caption;
+    span.textContent = entry.caption;
 
-    btn.append(img, span);
-    grid.appendChild(btn);
+    const openThisPhoto = () => openLightbox(flat, entry._flatStart + current);
+    card.addEventListener('click', openThisPhoto);
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openThisPhoto(); }
+    });
+
+    card.append(img, span);
+
+    if(imgs.length > 1){
+      const dotsWrap = document.createElement('div');
+      dotsWrap.className = 'gallery-item-dots';
+      const dotEls = imgs.map((_, di) => {
+        const dot = document.createElement('span');
+        dot.className = 'gallery-item-dot' + (di === 0 ? ' active' : '');
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      function goTo(nextIndex){
+        current = (nextIndex + imgs.length) % imgs.length;
+        img.src = imgs[current];
+        dotEls.forEach((dot, di) => dot.classList.toggle('active', di === current));
+      }
+
+      const prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = 'gallery-item-nav gallery-item-prev';
+      prevBtn.innerHTML = '‹';
+      prevBtn.setAttribute('aria-label', 'Foto anterior de ' + entry.caption);
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
+
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'gallery-item-nav gallery-item-next';
+      nextBtn.innerHTML = '›';
+      nextBtn.setAttribute('aria-label', 'Foto siguiente de ' + entry.caption);
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
+
+      const count = document.createElement('span');
+      count.className = 'gallery-item-count';
+      count.textContent = `📷 ${imgs.length}`;
+
+      card.append(prevBtn, nextBtn, dotsWrap, count);
+    }
+
+    grid.appendChild(card);
   });
-  wireGalleryClicks(grid, list);
 }
 
 const lightbox = document.getElementById('lightbox');
@@ -235,12 +394,6 @@ const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
 let activeGalleryList = [];
 let currentPhotoIndex = 0;
-
-function wireGalleryClicks(grid, list){
-  grid.querySelectorAll('.gallery-item').forEach((item, i) => {
-    item.addEventListener('click', () => openLightbox(list, i));
-  });
-}
 
 function openLightbox(list, index){
   activeGalleryList = list;
@@ -288,6 +441,11 @@ document.addEventListener('keydown', (e) => {
 
 renderGalleryInto('afterSchoolGallery', AFTER_SCHOOL_GALLERY);
 renderGalleryInto('galleryGrid', LICEO_GALLERY);
+
+// Cada botón de la cuadrícula "AS" abre su imagen/GIF en el mismo lightbox de la galería
+document.querySelectorAll('#asVisual .as-icon').forEach((btn, i) => {
+  btn.addEventListener('click', () => openLightbox(AS_ICON_MEDIA, i));
+});
 
 // ============ NOTICIAS, AGENDA Y REDES SOCIALES ============
 // Enlaces reales del liceo — se usan tanto en los botones de "Síguenos"
@@ -456,15 +614,15 @@ renderCalendar();
 const NEWS = [
 ];
 
-function renderNews(){
-  const grid = document.getElementById('newsGrid');
+function renderNewsInto(containerId, list, emptyMessage){
+  const grid = document.getElementById(containerId);
   if(!grid) return;
   grid.innerHTML = '';
-  if(NEWS.length === 0){
-    grid.innerHTML = '<p class="news-empty">Todavía no hay noticias publicadas aquí. Mientras tanto, revisa las novedades en nuestro Facebook e Instagram.</p>';
+  if(list.length === 0){
+    grid.innerHTML = `<p class="news-empty">${emptyMessage}</p>`;
     return;
   }
-  NEWS.forEach(item => {
+  list.forEach(item => {
     const card = document.createElement('article');
     card.className = 'news-card';
 
@@ -498,12 +656,17 @@ function renderNews(){
     grid.appendChild(card);
   });
 }
-renderNews();
+renderNewsInto('newsGrid', NEWS, 'Todavía no hay noticias publicadas aquí. Mientras tanto, revisa las novedades en nuestro Facebook e Instagram.');
 
-// ============ FORMULARIO DE CONTACTO ============
-const contactForm = document.getElementById('contactForm');
-const formSuccess = document.getElementById('formSuccess');
+// ---- AVISOS PROPIOS DE AFTER SCHOOL ----
+// Avisos y novedades solo del programa After School (cambios de horario,
+// actividades especiales, etc.) — distintas de las noticias generales del liceo.
+// Mismo formato que NEWS, arriba.
+const AS_AVISOS = [
+];
+renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados para After School. Cuando haya novedades del programa, aparecerán aquí.');
 
+// ============ FORMULARIOS DE CONTACTO ============
 function setFieldError(input, message){
   input.classList.toggle('invalid', Boolean(message));
   const msgEl = input.closest('.field')?.querySelector('.field-msg');
@@ -523,26 +686,38 @@ function validateField(input){
   return true;
 }
 
-['fName','fEmail','fMessage'].forEach(id => {
-  const input = document.getElementById(id);
-  input?.addEventListener('blur', () => validateField(input));
-  input?.addEventListener('input', () => {
-    if(input.classList.contains('invalid')) validateField(input);
+function wireContactForm(formId, successId, fieldIds, successMessage){
+  const form = document.getElementById(formId);
+  const successEl = document.getElementById(successId);
+  if(!form) return;
+
+  fieldIds.forEach(id => {
+    const input = document.getElementById(id);
+    input?.addEventListener('blur', () => validateField(input));
+    input?.addEventListener('input', () => {
+      if(input.classList.contains('invalid')) validateField(input);
+    });
   });
-});
 
-contactForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const fields = ['fName','fEmail','fMessage'].map(id => document.getElementById(id));
-  const allValid = fields.map(validateField).every(Boolean);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = fieldIds.map(id => document.getElementById(id));
+    const allValid = fields.map(validateField).every(Boolean);
 
-  if(!allValid){
-    formSuccess.textContent = '';
-    fields.find(f => f.classList.contains('invalid'))?.focus();
-    return;
-  }
+    if(!allValid){
+      successEl.textContent = '';
+      fields.find(f => f.classList.contains('invalid'))?.focus();
+      return;
+    }
 
-  formSuccess.textContent = '¡Gracias! Tu mensaje quedó registrado (formulario de ejemplo — conéctalo a tu correo o backend).';
-  contactForm.reset();
-  fields.forEach(f => setFieldError(f, ''));
-});
+    successEl.textContent = successMessage;
+    form.reset();
+    fields.forEach(f => setFieldError(f, ''));
+  });
+}
+
+wireContactForm('contactForm', 'formSuccess', ['fName','fEmail','fMessage'],
+  '¡Gracias! Tu mensaje quedó registrado (formulario de ejemplo — conéctalo a tu correo o backend).');
+
+wireContactForm('asContactForm', 'asFormSuccess', ['asfName','asfEmail','asfMessage'],
+  '¡Gracias! Tu consulta sobre After School quedó registrada (formulario de ejemplo — conéctalo a tu correo o backend).');

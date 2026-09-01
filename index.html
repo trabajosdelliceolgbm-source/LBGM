@@ -26,7 +26,18 @@
         <li><a href="#nosotros" data-goto="nosotros">Nosotros</a></li>
         <li><a href="#admision" data-goto="admision">Admisión</a></li>
         <li><a href="#normas" data-goto="normas">Normas y Deberes</a></li>
-        <li><a href="#afterschool" data-goto="afterschool">After School</a></li>
+        <li class="nav-dropdown" id="navAfterSchool">
+          <a href="#afterschool" data-goto="afterschool" class="nav-dropdown-link">
+            After School
+            <span class="nav-caret" aria-hidden="true">▾</span>
+          </a>
+          <ul class="nav-submenu">
+            <li><a href="#afterschool" data-goto="afterschool" data-assub="info" data-scrollto="asPresentacion">Información</a></li>
+            <li><a href="#afterschool" data-goto="afterschool" data-assub="avisos" data-scrollto="asAvisos">Avisos</a></li>
+            <li><a href="#afterschool" data-goto="afterschool" data-assub="galeria" data-scrollto="asGaleria">Galería</a></li>
+            <li><a href="#afterschool" data-goto="afterschool" data-assub="contacto" data-scrollto="asContacto">Contacto</a></li>
+          </ul>
+        </li>
         <li><a href="#galeria" data-goto="galeria">Galería</a></li>
         <li><a href="#noticias" data-goto="noticias">Noticias</a></li>
         <li><a href="#contacto" data-goto="contacto">Contacto</a></li>
@@ -295,33 +306,187 @@
   <!-- ---------- AFTER SCHOOL ---------- -->
   <section class="panel" id="afterschool" role="tabpanel" aria-labelledby="tabbtn-afterschool">
     <div class="wrap">
-      <div class="as-card">
-        <div>
-          <span class="as-badge">● Espacio After School</span>
-          <h2>Un lugar seguro para después de clases</h2>
-          <p>Sabemos que no todos los apoderados pueden retirar a sus hijos apenas suenan las últimas clases. After School es el espacio del liceo para los estudiantes más pequeños que salen temprano y cuyos padres siguen trabajando.</p>
-          <ul class="as-list">
-            <li>Un lugar acompañado para hacer las tareas del día, con ayuda si la necesitan.</li>
-            <li>Tiempo de juego libre y actividades recreativas dentro del liceo.</li>
-            <li>Espera segura hasta que el apoderado pueda venir a retirarlos.</li>
-            <li>A cargo de un adulto responsable del establecimiento en todo momento.</li>
-          </ul>
-          <div class="as-schedule">Funciona miercoles y jueves, al término de la jornada de los cursos menores</div>
-        </div>
-        <div class="as-visual" aria-hidden="true">
-          <div>✎</div><div>▦</div><div>☺</div>
-          <div>♟</div><div class="as-center">AS</div><div>✂</div>
-          <div>♫</div><div>★</div><div>▢</div>
+
+      <!-- Pestañas internas, independientes del resto del sitio -->
+      <div class="as-subtabs-nav" role="tablist" aria-label="Secciones de After School">
+        <button class="as-subtab-btn active" role="tab" aria-selected="true" data-assub="info" id="assubbtn-info">Información</button>
+        <button class="as-subtab-btn" role="tab" aria-selected="false" data-assub="avisos" id="assubbtn-avisos">Avisos</button>
+        <button class="as-subtab-btn" role="tab" aria-selected="false" data-assub="galeria" id="assubbtn-galeria">Galería</button>
+        <button class="as-subtab-btn" role="tab" aria-selected="false" data-assub="contacto" id="assubbtn-contacto">Contacto</button>
+      </div>
+
+      <div class="as-subpanel active" id="asInfo" role="tabpanel" aria-labelledby="assubbtn-info">
+        <div class="as-card" id="asPresentacion">
+          <div>
+            <span class="as-badge">● Espacio After School</span>
+            <span class="as-badge as-badge-outline">🎯 Finalidad pedagógica</span>
+            <h2>Un lugar seguro para después de clases</h2>
+            <p>Sabemos que no todos los apoderados pueden retirar a sus hijos apenas suenan las últimas clases. After School es el espacio del liceo para los estudiantes más pequeños que salen temprano y cuyos padres siguen trabajando. Es un programa educativo y sin fines de lucro: su finalidad es siempre pedagógica, no de mera guardería.</p>
+            <ul class="as-list">
+              <li>Un lugar acompañado para hacer las tareas del día, con ayuda si la necesitan.</li>
+              <li>Tiempo de juego libre y actividades recreativas dentro del liceo.</li>
+              <li>Espera segura hasta que el apoderado pueda venir a retirarlos.</li>
+              <li>A cargo de un adulto responsable del establecimiento en todo momento.</li>
+            </ul>
+            <div class="as-schedule">Funciona miercoles y jueves, al término de la jornada de los cursos menores</div>
+
+            <div class="as-menu" id="asDetalles">
+              <h3 class="as-menu-title">Sobre el programa</h3>
+              <div class="as-accordion">
+                <div class="as-acc-item open" data-as-acc="1">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">🎯</span>
+                    <h4>Finalidad del programa</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>La finalidad del After School es siempre pedagógica: es un espacio educativo, sin fines de lucro, orientado a favorecer el bienestar, el aprendizaje y el desarrollo integral de los niños y niñas — no un servicio de mera guardería. Así queda establecido en el Compromiso de Participación que firma cada familia al inscribirse.</p>
+                  </div>
+                </div>
+                <div class="as-acc-item" data-as-acc="2">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">👩‍🏫</span>
+                    <h4>Encargada</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>Profesora de educación parvularia Caroline Navarrete, Coordinadora del Área Técnico-Profesional y responsable del programa. Las actividades son impartidas por estudiantes del Área Técnico-Profesional de Atención de Párvulos, siempre supervisadas por ella.</p>
+                  </div>
+                </div>
+                <div class="as-acc-item" data-as-acc="3">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">🌱</span>
+                    <h4>Cómo nació la idea</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>El After School se creó a partir de una necesidad identificada en la comuna de Máfil, donde algunos padres y/o apoderados no pueden cuidar a sus hijos después del horario de clases.</p>
+                  </div>
+                </div>
+                <div class="as-acc-item" data-as-acc="4">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">🤝</span>
+                    <h4>Convenio</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>El programa funciona en convenio con <strong>Fundación 99</strong>, que acompaña su desarrollo. Con mucho cariño la reconocemos aquí y las invitamos a seguir su trabajo:</p>
+                    <a class="mention-card" href="https://www.instagram.com/fundacion99?igsi=aGJ2ZGxlMTg2dng3" target="_blank" rel="noopener">
+                      <span class="mention-ico">◎</span>
+                      <span class="mention-info">
+                        <strong>Fundación 99</strong>
+                        <span>@fundacion99 en Instagram</span>
+                      </span>
+                      <span class="mention-arrow">↗</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="as-acc-item" data-as-acc="5">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">🕓</span>
+                    <h4>Horarios</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>Miércoles y jueves, de 16:00 a 17:30 hrs, al término de la jornada de los cursos menores.</p>
+                  </div>
+                </div>
+                <div class="as-acc-item" data-as-acc="6">
+                  <button class="as-acc-head" type="button">
+                    <span class="as-acc-icon">📋</span>
+                    <h4>Registros y fichas</h4>
+                    <span class="as-acc-toggle">＋</span>
+                  </button>
+                  <div class="as-acc-body">
+                    <p>Se completa una ficha de admisión con los datos familiares y del menor, y la familia firma un Compromiso de Participación con los horarios y la finalidad pedagógica del After School.</p>
+                    <a class="as-doc-link" href="documentos/compromiso-participacion-after-school.pdf" target="_blank" rel="noopener">
+                      📄 Descargar Compromiso de Participación (PDF) ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="as-visual" id="asVisual">
+            <button class="as-icon" type="button" aria-label="Hora de tareas">✎</button>
+            <button class="as-icon" type="button" aria-label="Organización del día">▦</button>
+            <button class="as-icon" type="button" aria-label="Juego libre">☺</button>
+            <button class="as-icon" type="button" aria-label="Juegos de mesa">♟</button>
+            <div class="as-center" aria-hidden="true">AS</div>
+            <button class="as-icon" type="button" aria-label="Manualidades">✂</button>
+            <button class="as-icon" type="button" aria-label="Música">♫</button>
+            <button class="as-icon" type="button" aria-label="Reconocimientos">★</button>
+            <button class="as-icon" type="button" aria-label="El espacio After School">▢</button>
+          </div>
         </div>
       </div>
 
-      <div class="as-gallery-head">
-        <div class="divider"></div>
-        <p class="eyebrow">Galería After School</p>
-        <h3>Así se ve un día en After School</h3>
+      <div class="as-subpanel" id="asAvisos" role="tabpanel" aria-labelledby="assubbtn-avisos" hidden>
+        <div class="section-head as-noticias-head">
+          <div class="divider"></div>
+          <p class="eyebrow">Avisos After School</p>
+          <h2>Avisos y novedades del programa</h2>
+          <p>Cambios de horario, actividades especiales y avisos puntuales del espacio After School (distintos de las noticias generales del liceo).</p>
+        </div>
+        <div class="news-grid" id="asAvisosGrid">
+          <!-- Se genera desde la lista AS_AVISOS en java.js -->
+        </div>
       </div>
-      <div class="gallery-grid gallery-grid--compact" id="afterSchoolGallery">
-        <!-- Fotos generadas desde la lista AFTER_SCHOOL_GALLERY en java.js -->
+
+      <div class="as-subpanel" id="asGaleria" role="tabpanel" aria-labelledby="assubbtn-galeria" hidden>
+        <div class="as-gallery-head">
+          <div class="divider"></div>
+          <p class="eyebrow">Galería After School</p>
+          <h3>Así se ve un día en After School</h3>
+        </div>
+        <div class="gallery-grid gallery-grid--compact" id="afterSchoolGallery">
+          <!-- Fotos generadas desde la lista AFTER_SCHOOL_GALLERY en java.js -->
+        </div>
+      </div>
+
+      <div class="as-subpanel" id="asContacto" role="tabpanel" aria-labelledby="assubbtn-contacto" hidden>
+        <div class="section-head as-contacto-head">
+          <div class="divider"></div>
+          <p class="eyebrow">Contacto After School</p>
+          <h2>Escríbenos por el programa After School</h2>
+          <p>Para consultas específicas del programa —admisión, horarios o el contrato-compromiso— puedes contactar directamente a la encargada.</p>
+        </div>
+        <div class="as-contact-grid">
+          <div class="contact-info">
+            <div class="info-row">
+              <div class="ico ico-coral">👩‍🏫</div>
+              <div><strong>Encargada</strong><span>Profesora Caroline Navarrete, educación parvularia</span></div>
+            </div>
+            <div class="info-row">
+              <div class="ico ico-coral">✉</div>
+              <div><strong>Correo</strong><span>afterschool@liceogabrielamistral.cl</span></div>
+            </div>
+            <div class="info-row">
+              <div class="ico ico-coral">☎</div>
+              <div><strong>Teléfono</strong><span>+56 2 2XXX XXXX</span></div>
+            </div>
+            <div class="info-row">
+              <div class="ico ico-coral">🕓</div>
+              <div><strong>Horario del programa</strong><span>Miércoles y jueves, de 16:00 a 17:30 hrs.</span></div>
+            </div>
+          </div>
+          <form id="asContactForm" novalidate>
+            <div class="field">
+              <input type="text" id="asfName" placeholder="Nombre del apoderado" required>
+              <span class="field-msg"></span>
+            </div>
+            <div class="field">
+              <input type="email" id="asfEmail" placeholder="Correo electrónico" required>
+              <span class="field-msg"></span>
+            </div>
+            <div class="field">
+              <textarea id="asfMessage" placeholder="Escribe tu consulta sobre After School" required></textarea>
+              <span class="field-msg"></span>
+            </div>
+            <button type="submit">Enviar mensaje</button>
+            <p class="form-success" id="asFormSuccess" role="status"></p>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -413,13 +578,11 @@
         <div class="contact-info">
           <div class="info-row">
             <div class="ico">✉</div>
-            <div><strong>Correo Secretaria</strong><span>rosa.perez@eduvaldivia.gob.cl</span></div>
-            <div><strong>Correo Director</strong><span>arturo.alvear@eduvaldivia.gob.cl</span></div>
+            <div><strong>Correo</strong><span>contacto@liceogabrielamistral.cl</span></div>
           </div>
           <div class="info-row">
             <div class="ico">☎</div>
-            <div><strong>Teléfono Inspectoría General</strong><span>632 241230</span></div>
-            <div><strong>Teléfono Secretaria</strong><span>632 241231</span></div>
+            <div><strong>Teléfono</strong><span>+56 2 2XXX XXXX</span></div>
           </div>
           <div class="info-row">
             <div class="ico">⌂</div>
@@ -487,7 +650,7 @@
   <div class="wrap footer-row">
     <span>© 2026 Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
     <span>🛠️ Hecha por 4° TP Programación - 2026 - Lider de Proyecto "Damian Aravena".</span>
-    <span class="footer-contact">☎️ rosa.perez@eduvaldivia.gob.cl · arturo.alvear@edu.gob.cl </span>
+    <span class="footer-contact">☎️ @liceogabrielamistral.cl · +56 2 2XXX XXXX</span>
     <span>🎓 Esta pagina esta hecha con todo el esfuerzo y cariño hacia el Liceo.</span>
   </div>
 </footer>
