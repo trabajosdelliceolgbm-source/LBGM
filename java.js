@@ -345,7 +345,7 @@ const AS_ICON_MEDIA = [
   { src: 'img/afterschool/tareas.svg',        caption: 'Hora de tareas — un momento acompañado para avanzar en las tareas del día.' },
   { src: 'img/afterschool/agenda.svg',        caption: 'Organización del día — planificamos juntos las actividades de la jornada.' },
   { src: 'img/afterschool/juego-libre.svg',   caption: 'Juego libre — tiempo de recreación y juego dentro del liceo.' },
-  { src: 'img/afterschool/juegos-mesa.svg',   caption: 'Juegos de mesa — ajedrez, damas y otros juegos para pensar en grupo.' },
+  { src: 'img/afterschool/pintura.svg',       caption: 'Pintura — témperas, pinceles y mucha creatividad para dar color a sus ideas.' },
   { src: 'img/afterschool/manualidades.svg',  caption: 'Manualidades — actividades creativas con distintos materiales.' },
   { src: 'img/afterschool/musica.svg',        caption: 'Música — canciones y ritmo como parte de las experiencias del día.' },
   { src: 'img/afterschool/logros.svg',        caption: 'Reconocimientos — celebramos los logros y avances de cada niño o niña.' },
@@ -715,7 +715,7 @@ function renderNewsInto(containerId, list, emptyMessage){
 
     if(item.tag){
       const tagEl = document.createElement('span');
-      tagEl.className = 'news-tag' + (item.tag === 'Reconocimiento' ? ' tag-reconocimiento' : '');
+      tagEl.className = 'news-tag' + (item.tag === 'Reconocimiento' ? ' tag-reconocimiento' : item.tag === 'Afiche' ? ' tag-afiche' : '');
       tagEl.textContent = item.tag;
       card.appendChild(tagEl);
     }
@@ -732,6 +732,11 @@ function renderNewsInto(containerId, list, emptyMessage){
       } else {
         thumb.innerHTML = `<video controls preload="metadata" src="${item.video}"></video>`;
       }
+    } else if(item.image && item.poster){
+      // Afiche/póster: se muestra completo (sin recortar) y se puede abrir
+      // en una pestaña nueva para verlo en tamaño real.
+      thumb.classList.add('news-thumb--image', 'news-thumb--poster');
+      thumb.innerHTML = `<a href="${item.image}" target="_blank" rel="noopener" aria-label="Ver afiche completo: ${item.title || 'Afiche'}"><img src="${item.image}" alt="${item.title || 'Afiche'}" loading="lazy" onerror="this.closest('.news-thumb').classList.remove('news-thumb--image','news-thumb--poster');this.closest('.news-thumb').textContent='Liceo Gabriela Mistral';"></a>`;
     } else if(item.image){
       // Tarjeta con afiche/imagen. Si el archivo no carga, vuelve al
       // bloque de color con el nombre del liceo (igual que antes).
@@ -787,6 +792,10 @@ renderNewsInto('newsGrid', NEWS, 'Todavía no hay noticias publicadas aquí. Mie
 //   { date: '3 sep 2026', title: 'Afiche: Semana de la Familia', text: 'Revisa las actividades especiales de esta semana en After School.', tag: 'Actividad', image: 'img/avisos/afiche-semana-familia.jpg' },
 //   { date: '10 sep 2026', title: 'Así fue nuestra jornada de juegos', text: 'Un breve resumen en video de la última actividad recreativa.', tag: 'Actividad', video: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' },
 const AS_AVISOS = [
+  { date: '1 sep 2026', title: 'Afiche: Bienvenidos a After School', text: 'Un espacio donde niños y niñas potencian memoria, atención, comunicación, gestión de emociones y motricidad a través del juego.', tag: 'Afiche', color: 'g4', image: 'img/avisos/afiche-after-school-1.jpg', poster: true },
+  { date: '1 sep 2026', title: 'Afiche: Aprender y disfrutar juntos', text: 'Después de clases seguimos aprendiendo: las tardes se transforman en nuevas oportunidades para compartir y crecer.', tag: 'Afiche', color: 'g2', image: 'img/avisos/afiche-after-school-2.jpg', poster: true },
+  { date: '1 sep 2026', title: 'Afiche: After School Happy Kids', text: 'Miércoles y jueves te esperamos en un espacio educativo y entretenido donde cada tarde es una nueva oportunidad para aprender, compartir y crecer juntos.', tag: 'Afiche', color: 'g3', image: 'img/avisos/afiche-after-school-3.jpg', poster: true },
+  { date: '1 sep 2026', title: 'Afiche: ¿Quién puede asistir?', text: 'Niños y niñas de 4 a 9 años que no tienen con quién quedarse después del horario de clases. Encuéntranos en el Liceo Bicentenario Gabriela Mistral.', tag: 'Afiche', color: 'g5', image: 'img/avisos/afiche-after-school-4.jpg', poster: true },
 ];
 renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados para After School. Cuando haya novedades del programa, aparecerán aquí.');
 
