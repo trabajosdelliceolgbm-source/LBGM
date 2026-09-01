@@ -609,10 +609,35 @@ renderCalendar();
 //                        esa red. Muestra un link "Ver en ..." en la tarjeta.
 //   link (opcional)   -> URL directa a la publicación real. Si no la
 //                        tienes, usa FB_URL o IG_URL (van al perfil).
+//   image (opcional)  -> ruta a un afiche/imagen para la portada de la
+//                        tarjeta (ver detalle completo más abajo, junto
+//                        a AS_AVISOS).
+//   video (opcional)  -> link de YouTube o ruta a un video propio para la
+//                        portada de la tarjeta (ver detalle completo más
+//                        abajo, junto a AS_AVISOS).
 // Ejemplo (déjalo comentado como guía o bórralo cuando agregues la primera real):
 //   { date: '22 ago 2026', title: '...', text: '...', tag: 'Reconocimiento', source: 'instagram', link: IG_URL, color: 'g2' },
 const NEWS = [
 ];
+
+// Reconoce un link de YouTube en cualquiera de sus formatos habituales
+// (youtube.com/watch?v=, youtu.be/, /embed/, /shorts/) o un ID de video
+// puesto directamente, y devuelve solo el ID. Si no reconoce nada, devuelve null.
+function getYouTubeId(url){
+  if(!url) return null;
+  const patterns = [
+    /youtu\.be\/([a-zA-Z0-9_-]{6,})/,
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{6,})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{6,})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{6,})/
+  ];
+  for(const p of patterns){
+    const m = url.match(p);
+    if(m) return m[1];
+  }
+  if(/^[a-zA-Z0-9_-]{6,15}$/.test(url)) return url; // ya era un ID de YouTube
+  return null;
+}
 
 function renderNewsInto(containerId, list, emptyMessage){
   const grid = document.getElementById(containerId);
@@ -635,7 +660,24 @@ function renderNewsInto(containerId, list, emptyMessage){
 
     const thumb = document.createElement('div');
     thumb.className = 'news-thumb ' + (item.color || 'g1');
-    thumb.textContent = 'Liceo Gabriela Mistral';
+
+    if(item.video){
+      // Tarjeta con video: YouTube incrustado, o un archivo de video propio.
+      thumb.classList.add('news-thumb--video');
+      const ytId = getYouTubeId(item.video);
+      if(ytId){
+        thumb.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" title="${item.title || 'Video'}" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      } else {
+        thumb.innerHTML = `<video controls preload="metadata" src="${item.video}"></video>`;
+      }
+    } else if(item.image){
+      // Tarjeta con afiche/imagen. Si el archivo no carga, vuelve al
+      // bloque de color con el nombre del liceo (igual que antes).
+      thumb.classList.add('news-thumb--image');
+      thumb.innerHTML = `<img src="${item.image}" alt="${item.title || 'Afiche'}" loading="lazy" onerror="this.parentElement.classList.remove('news-thumb--image');this.parentElement.textContent='Liceo Gabriela Mistral';">`;
+    } else {
+      thumb.textContent = 'Liceo Gabriela Mistral';
+    }
 
     const body = document.createElement('div');
     body.className = 'news-body';
@@ -661,7 +703,27 @@ renderNewsInto('newsGrid', NEWS, 'Todavía no hay noticias publicadas aquí. Mie
 // ---- AVISOS PROPIOS DE AFTER SCHOOL ----
 // Avisos y novedades solo del programa After School (cambios de horario,
 // actividades especiales, etc.) — distintas de las noticias generales del liceo.
-// Mismo formato que NEWS, arriba.
+// Mismo formato que NEWS, arriba, con dos campos pensados para dejar las
+// tarjetas listas para afiches y videos:
+//
+//   image -> ruta a un afiche/imagen. Sube el archivo dentro de la carpeta
+//            img/avisos/ (créala si no existe) y escribe aquí la misma ruta.
+//              Ej: image: 'img/avisos/afiche-semana-familia.jpg'
+//
+//   video -> puede ser:
+//              a) un link de YouTube — se incrusta el reproductor solo:
+//                 Ej: video: 'https://www.youtube.com/watch?v=XXXXXXXXXXX'
+//              b) la ruta a un video propio (mp4) subido dentro de
+//                 video/avisos/ (créala si no existe):
+//                 Ej: video: 'video/avisos/resumen-actividad.mp4'
+//
+// Si un aviso trae "video", este siempre se muestra por sobre "image".
+// Si no trae ninguno de los dos, la tarjeta se ve igual que antes (bloque
+// de color con el nombre del liceo).
+//
+// Ejemplos (bórralos o coméntalos cuando agregues avisos reales):
+//   { date: '3 sep 2026', title: 'Afiche: Semana de la Familia', text: 'Revisa las actividades especiales de esta semana en After School.', tag: 'Actividad', image: 'img/avisos/afiche-semana-familia.jpg' },
+//   { date: '10 sep 2026', title: 'Así fue nuestra jornada de juegos', text: 'Un breve resumen en video de la última actividad recreativa.', tag: 'Actividad', video: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' },
 const AS_AVISOS = [
 ];
 renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados para After School. Cuando haya novedades del programa, aparecerán aquí.');
