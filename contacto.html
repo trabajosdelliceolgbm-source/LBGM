@@ -2,14 +2,16 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Formulario de contacto · Liceo Bicentenario Gabriela Mistral</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#132C54">
 <link rel="icon" type="image/png" href="img/galeria/escudo.jpg">
+<link rel="apple-touch-icon" href="img/galeria/escudo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet" href="estilos.css?v=2">
 </head>
 <body class="contact-page-body">
 
@@ -37,27 +39,27 @@
 
         <div class="contact-info contact-page-info">
           <div class="info-row">
-            <div class="ico">✉</div>
-            <div><strong>Correo Director</strong><span>arturo.alvear@eduvaldivia.gob.cl</span></div>
+            <div class="ico" aria-hidden="true">✉</div>
+            <div><strong>Correo Director</strong><span class="js-email" data-user="arturo.alvear" data-domain="eduvaldivia.gob.cl"></span></div>
           </div>
           <div class="info-row">
-            <div class="ico">✉</div>
-            <div><strong>Correo Secretaria</strong><span>rosa.perez@eduvaldivia.gob.cl</span></div>
+            <div class="ico" aria-hidden="true">✉</div>
+            <div><strong>Correo Secretaria</strong><span class="js-email" data-user="rosa.perez" data-domain="eduvaldivia.gob.cl"></span></div>
           </div>
           <div class="info-row">
-            <div class="ico">☎</div>
+            <div class="ico" aria-hidden="true">☎</div>
             <div><strong>Teléfono Inspectoría General</strong><span>632 241230</span></div>
           </div>
           <div class="info-row">
-            <div class="ico">☎</div>
+            <div class="ico" aria-hidden="true">☎</div>
             <div><strong>Teléfono Secretaria</strong><span>632 241231</span></div>
           </div>
           <div class="info-row">
-            <div class="ico">⌂</div>
+            <div class="ico" aria-hidden="true">⌂</div>
             <div><strong>Dirección</strong><span>Bernardo O'Higgins #306, Máfil, Los Ríos, Chile</span></div>
           </div>
           <div class="info-row">
-            <div class="ico">◷</div>
+            <div class="ico" aria-hidden="true">◷</div>
             <div><strong>Atención secretaría</strong><span>Lunes a viernes, 08:30 a 17:00</span></div>
           </div>
         </div>
@@ -81,6 +83,10 @@
           </div>
           <button type="submit">Enviar mensaje</button>
           <p class="form-success" id="contactPageSuccess" role="status"></p>
+          <p class="form-fallback" id="contactPageFallback" hidden>
+            ¿No se abrió tu aplicación de correo?
+            <button type="button" id="contactPageCopyBtn">Copiar correo del director</button>
+          </p>
         </form>
       </div>
 
@@ -90,8 +96,8 @@
 
 <footer>
   <div class="wrap footer-row">
-    <span>© 2026 Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
-    <span class="footer-contact">☎️ arturo.alvear@eduvaldivia.gob.cl - rosa.perez@eduvaldivia.gob.cl</span>
+    <span>© <span class="js-year">2026</span> Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
+    <span class="footer-contact">☎️ <span class="js-email" data-user="arturo.alvear" data-domain="eduvaldivia.gob.cl"></span> - <span class="js-email" data-user="rosa.perez" data-domain="eduvaldivia.gob.cl"></span></span>
   </div>
 </footer>
 
@@ -115,8 +121,21 @@
     return true;
   }
 
-  // Correos a los que llega el mensaje (mismos que se muestran en la página)
-  const DESTINATARIOS = ['arturo.alvear@eduvaldivia.gob.cl', 'rosa.perez@eduvaldivia.gob.cl'];
+  // Correos a los que llega el mensaje (mismos que se muestran en la página).
+  // Se arman en dos partes para no dejar la dirección completa como texto plano.
+  const DESTINATARIOS = [
+    ['arturo.alvear', 'eduvaldivia.gob.cl'],
+    ['rosa.perez', 'eduvaldivia.gob.cl'],
+  ].map(([user, domain]) => `${user}@${domain}`);
+
+  // ---------------------------------------------------------------
+  // ENVÍO REAL (opcional): para que el mensaje llegue garantizado, sin
+  // depender de que el celular tenga una app de correo configurada,
+  // crea una cuenta gratis en https://web3forms.com, copia tu "Access
+  // Key" y pégala aquí abajo entre las comillas. Mientras esto esté
+  // vacío, el formulario sigue funcionando igual que antes (mailto).
+  // ---------------------------------------------------------------
+  const WEB3FORMS_KEY = '';
 
   const form = document.getElementById('contactPageForm');
   const successEl = document.getElementById('contactPageSuccess');
@@ -129,6 +148,55 @@
       if(input.classList.contains('invalid')) validateField(input);
     });
   });
+
+  function sendByMailto(nombre, correo, asunto, mensaje){
+    const asuntoCorreo = asunto ? `Contacto liceo: ${asunto}` : `Contacto liceo — mensaje de ${nombre}`;
+    const cuerpoCorreo = `Nombre: ${nombre}\nCorreo de contacto: ${correo}\n\n${mensaje}`;
+
+    const mailtoUrl = `mailto:${DESTINATARIOS.join(',')}` +
+      `?subject=${encodeURIComponent(asuntoCorreo)}` +
+      `&body=${encodeURIComponent(cuerpoCorreo)}`;
+
+    window.location.href = mailtoUrl;
+
+    successEl.textContent = 'Se abrió tu aplicación de correo con el mensaje listo — solo debes presionar "Enviar" ahí.';
+
+    // Si el navegador no tiene una app de correo asociada (frecuente en celulares),
+    // no pasa nada visible. Mostramos una alternativa por si acaso, unos segundos después.
+    const fallbackEl = document.getElementById('contactPageFallback');
+    clearTimeout(window._contactFallbackTimer);
+    window._contactFallbackTimer = setTimeout(() => { fallbackEl.hidden = false; }, 2500);
+  }
+
+  async function sendByWeb3Forms(nombre, correo, asunto, mensaje, submitBtn){
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: asunto ? `Contacto liceo: ${asunto}` : `Contacto liceo — mensaje de ${nombre}`,
+          name: nombre,
+          email: correo,
+          message: mensaje,
+        }),
+      });
+      const data = await res.json();
+      if(data.success){
+        successEl.textContent = 'Tu mensaje fue enviado. Te responderemos a la brevedad.';
+      } else {
+        sendByMailto(nombre, correo, asunto, mensaje);
+      }
+    }catch(err){
+      // Sin conexión o el servicio no respondió: usamos el correo como respaldo.
+      sendByMailto(nombre, correo, asunto, mensaje);
+    }finally{
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar mensaje';
+    }
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -145,20 +213,38 @@
     const correo = document.getElementById('fEmail').value.trim();
     const asunto = document.getElementById('fSubject').value.trim();
     const mensaje = document.getElementById('fMessage').value.trim();
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-    const asuntoCorreo = asunto ? `Contacto liceo: ${asunto}` : `Contacto liceo — mensaje de ${nombre}`;
-    const cuerpoCorreo = `Nombre: ${nombre}\nCorreo de contacto: ${correo}\n\n${mensaje}`;
+    if(WEB3FORMS_KEY){
+      sendByWeb3Forms(nombre, correo, asunto, mensaje, submitBtn);
+    } else {
+      sendByMailto(nombre, correo, asunto, mensaje);
+    }
 
-    const mailtoUrl = `mailto:${DESTINATARIOS.join(',')}` +
-      `?subject=${encodeURIComponent(asuntoCorreo)}` +
-      `&body=${encodeURIComponent(cuerpoCorreo)}`;
-
-    window.location.href = mailtoUrl;
-
-    successEl.textContent = 'Se abrió tu aplicación de correo con el mensaje listo — solo debes presionar "Enviar" ahí.';
     form.reset();
     fields.forEach(f => setFieldError(f, ''));
   });
+
+  document.getElementById('contactPageCopyBtn')?.addEventListener('click', async (e) => {
+    const direccion = DESTINATARIOS[0];
+    try{
+      await navigator.clipboard.writeText(direccion);
+      e.target.textContent = '¡Correo copiado!';
+      e.target.classList.add('copied');
+      setTimeout(() => { e.target.textContent = 'Copiar correo del director'; e.target.classList.remove('copied'); }, 2500);
+    }catch(err){
+      window.location.href = 'mailto:' + direccion;
+    }
+  });
+
+  // Rellena los correos que se muestran en pantalla (ver spans .js-email más arriba)
+  document.querySelectorAll('.js-email').forEach(el => {
+    const user = el.dataset.user, domain = el.dataset.domain;
+    if(user && domain) el.textContent = `${user}@${domain}`;
+  });
+
+  // Actualiza el año del footer automáticamente cada año
+  document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 </script>
 </body>
 </html>

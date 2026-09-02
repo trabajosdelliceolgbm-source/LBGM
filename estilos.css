@@ -83,6 +83,7 @@ nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
 nav a{text-decoration:none;font-weight:500;font-size:.94rem;color:var(--navy);position:relative;padding:6px 0;cursor:pointer;background:none;border:none;}
 nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .2s ease;}
 nav a:hover::after{width:100%;}
+nav a[aria-current="page"]::after{width:100%;}
 .nav-cta{
   background:var(--blue);color:#fff;padding:9px 18px;border-radius:100px;
   font-size:.88rem;font-weight:600;text-decoration:none;white-space:nowrap;
@@ -1279,4 +1280,215 @@ footer{
   .wrap{padding:0 14px;}
   .hero-actions{gap:10px;}
   .btn{padding:12px 18px;font-size:.88rem;}
+}
+/* ===================== MEJORAS AGREGADAS ===================== */
+
+/* Botón "volver arriba" */
+.back-to-top{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:850;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:none;
+  background:var(--navy);
+  color:#fff;
+  font-size:1.2rem;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease, background .15s ease;
+}
+.back-to-top.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.back-to-top:hover, .back-to-top:focus-visible{background:var(--blue);}
+
+/* Página 404 personalizada */
+.error-404-card{
+  max-width:560px;
+  margin:0 auto;
+  text-align:center;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:56px 40px;
+}
+.error-404-seal{margin:0 auto 20px;}
+.error-404-card h1{margin:6px 0 14px;font-size:1.7rem;}
+.error-404-card p{color:var(--ink);opacity:.8;}
+.error-404-actions{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:26px;
+}
+.error-404-actions .btn-outline{border-color:var(--line);color:var(--navy);}
+.error-404-actions .btn-outline:hover{background:var(--cream);}
+@media (max-width:480px){
+  .error-404-card{padding:40px 22px;}
+}
+
+/* Enlace "saltar al contenido": invisible hasta que se navega con Tab (teclado) */
+.skip-link{
+  position:absolute;
+  top:-60px;
+  left:12px;
+  z-index:1000;
+  background:var(--navy);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:8px;
+  font-family:'IBM Plex Sans', sans-serif;
+  font-weight:600;
+  text-decoration:none;
+  transition:top .15s ease;
+}
+.skip-link:focus{
+  top:12px;
+}
+
+/* Botón flotante de WhatsApp (contacto rápido en móvil y escritorio) */
+.whatsapp-float{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:900;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:14px 18px;
+  border-radius:999px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  font-family:'IBM Plex Sans', sans-serif;
+  font-weight:600;
+  font-size:0.95rem;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.whatsapp-float:hover, .whatsapp-float:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(0,0,0,0.3);
+}
+.whatsapp-float svg{width:22px;height:22px;flex-shrink:0;}
+.whatsapp-float span{white-space:nowrap;}
+@media (max-width:640px){
+  .whatsapp-float{
+    right:14px;
+    bottom:14px;
+    padding:13px;
+  }
+  .whatsapp-float span{display:none;}
+}
+
+/* Alternativa de contacto cuando el correo (mailto) no abre una app instalada */
+.form-fallback{
+  margin-top:10px;
+  font-size:0.9rem;
+  color:var(--ink);
+  opacity:0.85;
+}
+.form-fallback button{
+  background:none;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:6px 12px;
+  font-family:'IBM Plex Sans', sans-serif;
+  font-size:0.85rem;
+  cursor:pointer;
+  color:var(--navy);
+}
+.form-fallback button:hover, .form-fallback button:focus-visible{
+  background:var(--cream);
+}
+.form-fallback .copied{color:var(--lab-green);font-weight:600;}
+
+/* ===================== RESPONSIVIDAD AVANZADA POR DISPOSITIVO ===================== */
+
+/* 1) Evita el "zoom automático" que hace iPhone/Safari al tocar un campo de formulario
+      cuando el texto es menor a 16px. Sin esto, cada vez que alguien toca el formulario
+      de contacto desde un iPhone, la pantalla se acerca sola. */
+@media (max-width:768px){
+  form input, form textarea{font-size:16px;}
+}
+
+/* 2) "Safe areas": deja espacio para el notch / la isla dinámica / la barra inferior
+      de gestos en celulares modernos (iPhone con notch, Android con barra gestual),
+      para que el header y los botones flotantes no queden tapados ni cortados. */
+header{
+  padding-top:env(safe-area-inset-top);
+}
+.back-to-top{
+  right:calc(20px + env(safe-area-inset-right));
+  bottom:calc(20px + env(safe-area-inset-bottom));
+}
+.whatsapp-float{
+  right:calc(20px + env(safe-area-inset-right));
+  bottom:calc(20px + env(safe-area-inset-bottom));
+}
+@media (max-width:640px){
+  .back-to-top{bottom:calc(14px + env(safe-area-inset-bottom));}
+}
+
+/* 3) Zonas táctiles mínimas de ~44px en botones pequeños de solo ícono, siguiendo las
+      recomendaciones de accesibilidad táctil de Apple/Google (más fácil de tocar sin errores). */
+@media (max-width:860px){
+  .gallery-item-nav{width:38px;height:38px;}
+  .lightbox-close{padding:10px;}
+  .lightbox-nav{width:44px;height:44px;}
+  .cal-nav{width:44px;height:44px;}
+  .burger{padding:10px;}
+}
+
+/* 4) Pantallas medianas / tablets en horizontal (iPad, laptops chicos): hoy saltaban
+      directo de 3 a 1 columna en noticias, dejando mucho espacio vacío en el medio. */
+@media (min-width:861px) and (max-width:1100px){
+  .news-grid{grid-template-columns:repeat(2,1fr);}
+  .as-team-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
+  .hero-inner{gap:32px;}
+}
+
+/* 5) Celulares en horizontal con poca altura (ej. mirando el sitio acostado): el hero
+      ya no ocupa toda la pantalla y se evitan animaciones que se sienten muy grandes. */
+@media (max-height:520px) and (orientation:landscape){
+  .hero-inner{padding-top:28px;padding-bottom:28px;}
+  .seal{width:110px;height:110px;}
+  .seal img{width:52px;height:52px;}
+  .hero-lemas{display:none;}
+}
+
+/* 6) Monitores grandes / pantallas ultra anchas: el contenido no se ve perdido ni
+      demasiado angosto en el centro de la pantalla. */
+@media (min-width:1600px){
+  .wrap{max-width:1280px;}
+  html{font-size:105%;}
+  .hero-bg-slide{background-position:center 35%;}
+}
+
+/* 7) Que iOS no reescale el texto solo al girar la pantalla de vertical a horizontal. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+
+/* 8) Modo alto contraste / usuarios que piden más contraste en su sistema operativo:
+      refuerza los bordes de botones para que no se pierdan sobre el fondo. */
+@media (prefers-contrast: more){
+  .btn-outline{border-width:2px;}
+  .step, .rule-card, .contact-page-card{border-width:2px;}
+}
+
+/* Hoja de estilos de impresión: oculta navegación, mapas y decoración innecesaria al imprimir */
+@media print{
+  header, .marquee, .tab-transition, .tabs-nav, .hero-wave, .lightbox,
+  .whatsapp-float, .nav-cta, .burger, footer .footer-contact,
+  .contact-cta, .map-block, .follow-block, iframe{
+    display:none !important;
+  }
+  body{background:#fff;color:#000;}
+  .panel{display:block !important;}
+  a[href]:after{content:" (" attr(href) ")";font-size:0.75em;}
 }

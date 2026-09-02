@@ -2,7 +2,8 @@
 const burgerBtn = document.getElementById('burgerBtn');
 const mainNav = document.getElementById('mainNav');
 burgerBtn?.addEventListener('click', () => {
-  mainNav.classList.toggle('open');
+  const isOpen = mainNav.classList.toggle('open');
+  burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
 // ============ SISTEMA DE PESTAÑAS ============
@@ -77,6 +78,7 @@ function activateTab(tabName, { scroll = true, animate = true, onDone } = {}){
       b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
     });
     panels.forEach(p => p.classList.toggle('active', p.id === tabName));
+    updateNavCurrent(tabName);
     moveSlider(targetBtn);
     history.replaceState(null, '', '#' + tabName);
     if(onDone) requestAnimationFrame(onDone);
@@ -95,6 +97,47 @@ function activateTab(tabName, { scroll = true, animate = true, onDone } = {}){
 
 tabButtons.forEach(btn => {
   btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+});
+
+// Marca en el menú principal (enlaces "Nosotros", "Admisión", etc.) cuál sección
+// está activa, para que un lector de pantalla sepa dónde está el usuario.
+const mainNavLinks = document.querySelectorAll('#mainNav a[data-goto]');
+function updateNavCurrent(tabName){
+  mainNavLinks.forEach(a => {
+    if(a.dataset.goto === tabName) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+}
+updateNavCurrent(document.querySelector('.tab-btn.active')?.dataset.tab);
+
+// ============ BOTÓN "VOLVER ARRIBA" ============
+const backToTopBtn = document.getElementById('backToTop');
+if(backToTopBtn){
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+}
+
+// ============ CORREOS OFUSCADOS (anti-spam) ============
+// Los correos no quedan escritos completos en ningún texto del HTML;
+// se arman aquí en tiempo de ejecución a partir de dos partes separadas,
+// para que los robots que rastrean el código en busca de "algo@algo.com"
+// no los detecten como texto plano.
+document.querySelectorAll('.js-email').forEach(el => {
+  const user = el.dataset.user;
+  const domain = el.dataset.domain;
+  if(!user || !domain) return;
+  const address = user + '@' + domain;
+  if(el.tagName === 'A'){
+    el.href = 'mailto:' + address;
+    if(!el.textContent) el.textContent = address;
+  } else {
+    el.textContent = address;
+  }
 });
 
 // ============ SUB-PESTAÑAS INTERNAS DE AFTER SCHOOL ============
@@ -803,3 +846,8 @@ renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados par
 // El formulario de contacto general y el de After School ahora viven en
 // páginas aparte (contacto.html y contacto-afterschool.html), cada una con
 // su propia validación. Aquí ya no hay formularios que cablear.
+
+// ============ AÑO DEL FOOTER (SIEMPRE ACTUALIZADO) ============
+// Reemplaza el "2026" fijo del pie de página por el año actual, para no
+// tener que acordarse de cambiarlo a mano cada enero.
+document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });

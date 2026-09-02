@@ -2,15 +2,71 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>liceo Bicentenario Gabriela Mistral</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Liceo Bicentenario Gabriela Mistral · Máfil, Los Ríos</title>
+
+<!-- SEO: descripción y palabras clave para buscadores -->
+<meta name="description" content="Liceo Bicentenario Gabriela Mistral, establecimiento técnico-profesional en Máfil, Región de Los Ríos. Formando con manos, letras y futuro desde 1950. Admisión, After School, noticias y contacto.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.liceogabrielamistral.cl/">
+
+<!-- Redes sociales: cómo se ve el enlace al compartirlo (WhatsApp, Facebook, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta property="og:site_name" content="Liceo Bicentenario Gabriela Mistral">
+<meta property="og:title" content="Liceo Bicentenario Gabriela Mistral · Máfil, Los Ríos">
+<meta property="og:description" content="Setenta y seis años formando manos que trabajan y mentes que piensan. Conoce nuestra admisión, especialidades, After School y noticias.">
+<meta property="og:image" content="https://www.liceogabrielamistral.cl/img/hero/01-fachada-liceo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.liceogabrielamistral.cl/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Liceo Bicentenario Gabriela Mistral">
+<meta name="twitter:description" content="Liceo técnico-profesional en Máfil, Los Ríos · Desde 1950.">
+<meta name="twitter:image" content="https://www.liceogabrielamistral.cl/img/hero/01-fachada-liceo.jpg">
+
+<!-- Apariencia en dispositivos móviles / al agregar a la pantalla de inicio -->
+<meta name="theme-color" content="#132C54">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="img/galeria/escudo.jpg">
+<link rel="apple-touch-icon" href="img/galeria/escudo.jpg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Liceo Gabriela Mistral">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet" href="estilos.css?v=2">
+
+<!-- Datos estructurados: ayuda a Google a mostrar dirección, teléfono y logo en los resultados -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Liceo Bicentenario Gabriela Mistral",
+  "foundingDate": "1950",
+  "url": "https://www.liceogabrielamistral.cl/",
+  "logo": "https://www.liceogabrielamistral.cl/img/galeria/escudo.jpg",
+  "image": "https://www.liceogabrielamistral.cl/img/hero/01-fachada-liceo.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bernardo O'Higgins #306",
+    "addressLocality": "Máfil",
+    "addressRegion": "Los Ríos",
+    "addressCountry": "CL"
+  },
+  "telephone": "+56632241230",
+  "email": "arturo.alvear@eduvaldivia.gob.cl",
+  "sameAs": [
+    "https://web.facebook.com/Lgmistral",
+    "https://www.instagram.com/liceo.bgm.m/"
+  ]
+}
+</script>
 </head>
 <body>
+
+<a href="#inicio" class="skip-link">Saltar al contenido principal</a>
 
 <header>
   <div class="nav-row">
@@ -44,7 +100,7 @@
       </ul>
     </nav>
     <button class="nav-cta" data-goto="admision">Matricular</button>
-    <button class="burger" aria-label="Abrir menú" id="burgerBtn"><span></span><span></span><span></span></button>
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false" id="burgerBtn"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -57,7 +113,7 @@
   </div>
 </div>
 
-<section class="hero" id="inicio">
+<section class="hero" id="inicio" tabindex="-1">
   <div class="hero-bg" id="heroBg" aria-hidden="true">
     <div class="hero-bg-slide active" style="background-image:url('img/hero/01-fachada-liceo.jpg')"></div>
   </div>
@@ -143,28 +199,28 @@
         <div class="pillars">
           <button class="pillar" data-flip="letras">
             <div class="pillar-face pillar-front">
-              <div class="glyph g-navy">Aa</div>
+              <div class="glyph g-navy" aria-hidden="true">Aa</div>
               <h3>Letras</h3>
               <p>Lenguaje, historia y pensamiento crítico, con la palabra como herramienta de trabajo.</p>
             </div>
           </button>
           <button class="pillar" data-flip="ciencias">
             <div class="pillar-face pillar-front">
-              <div class="glyph g-green">⚗</div>
+              <div class="glyph g-green" aria-hidden="true">⚗</div>
               <h3>Ciencias</h3>
               <p>Física, química y biología aplicadas, con base experimental desde primer año.</p>
             </div>
           </button>
           <button class="pillar" data-flip="laboratorio">
             <div class="pillar-face pillar-front">
-              <div class="glyph g-gold">🧪</div>
+              <div class="glyph g-gold" aria-hidden="true">🧪</div>
               <h3>Laboratorio</h3>
               <p>Especialidades técnicas con práctica real en taller y laboratorio, no solo en el papel.</p>
             </div>
           </button>
           <button class="pillar" data-flip="tecnologia">
             <div class="pillar-face pillar-front">
-              <div class="glyph g-blue">@</div>
+              <div class="glyph g-blue" aria-hidden="true">@</div>
               <h3>Tecnología</h3>
               <p>Herramientas digitales y pensamiento computacional integrados a todas las asignaturas.</p>
             </div>
@@ -228,7 +284,7 @@
         </div>
         <div class="admission-cta">
           <button class="btn btn-gold" data-goto="contacto">Hablar con secretaría</button>
-          <a href="#" class="btn btn-outline">Descargar lista de documentos</a>
+          <a href="contacto.html" class="btn btn-outline" target="_blank" rel="noopener" title="Aún no hay un PDF cargado: escribe a secretaría y te la enviamos">Solicitar lista de documentos</a>
         </div>
       </div>
     </div>
@@ -246,7 +302,7 @@
 
       <div class="rules-grid">
         <div class="rule-card">
-          <div class="glyph g-navy">✓</div>
+          <div class="glyph g-navy" aria-hidden="true">✓</div>
           <h3>Derechos del estudiante</h3>
           <ul class="as-list">
             <li>Recibir una educación de calidad, en un ambiente seguro y de respeto.</li>
@@ -256,7 +312,7 @@
           </ul>
         </div>
         <div class="rule-card">
-          <div class="glyph g-blue">◆</div>
+          <div class="glyph g-blue" aria-hidden="true">◆</div>
           <h3>Deberes del estudiante</h3>
           <ul class="as-list">
             <li>Asistir a clases con puntualidad y cumplir con sus tareas y evaluaciones.</li>
@@ -266,7 +322,7 @@
           </ul>
         </div>
         <div class="rule-card">
-          <div class="glyph g-gold">👕</div>
+          <div class="glyph g-gold" aria-hidden="true">👕</div>
           <h3>Presentación personal</h3>
           <ul class="as-list">
             <li>Uso del uniforme oficial o buzo institucional, según corresponda al día.</li>
@@ -275,7 +331,7 @@
           </ul>
         </div>
         <div class="rule-card">
-          <div class="glyph g-green">◷</div>
+          <div class="glyph g-green" aria-hidden="true">◷</div>
           <h3>Asistencia y puntualidad</h3>
           <ul class="as-list">
             <li>Asistencia mínima requerida según normativa del Ministerio de Educación.</li>
@@ -284,7 +340,7 @@
           </ul>
         </div>
         <div class="rule-card">
-          <div class="glyph g-navy">@</div>
+          <div class="glyph g-navy" aria-hidden="true">@</div>
           <h3>Uso de tecnología</h3>
           <ul class="as-list">
             <li>Celulares y dispositivos personales en modo silencioso durante la clase.</li>
@@ -293,7 +349,7 @@
           </ul>
         </div>
         <div class="rule-card">
-          <div class="glyph g-blue">!</div>
+          <div class="glyph g-blue" aria-hidden="true">!</div>
           <h3>Faltas y sanciones</h3>
           <ul class="as-list">
             <li><strong>Leves:</strong> atrasos, incumplimiento de tareas — se registran y se conversan con el estudiante.</li>
@@ -304,7 +360,7 @@
       </div>
 
       <div class="admission-cta">
-        <a href="#" class="btn btn-gold">Descargar Reglamento de Convivencia Escolar</a>
+        <a href="contacto.html" class="btn btn-gold" target="_blank" rel="noopener" title="Aún no hay un PDF cargado: escribe a inspectoría y te lo enviamos">Solicitar Reglamento de Convivencia Escolar</a>
         <button class="btn btn-outline" data-goto="contacto">Consultar con inspectoría</button>
       </div>
     </div>
@@ -343,7 +399,7 @@
               <div class="as-accordion">
                 <div class="as-acc-item open" data-as-acc="1">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">🎯</span>
+                    <span class="as-acc-icon" aria-hidden="true">🎯</span>
                     <h4>Finalidad del programa</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
@@ -354,7 +410,7 @@
                 </div>
                 <div class="as-acc-item" data-as-acc="2">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">👩‍🏫</span>
+                    <span class="as-acc-icon" aria-hidden="true">👩‍🏫</span>
                     <h4>Encargada</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
@@ -365,7 +421,7 @@
                 </div>
                 <div class="as-acc-item" data-as-acc="3">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">🌱</span>
+                    <span class="as-acc-icon" aria-hidden="true">🌱</span>
                     <h4>Cómo nació la idea</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
@@ -376,8 +432,8 @@
                 </div>
                 <div class="as-acc-item" data-as-acc="4">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">🤝</span>
-                    <h4>Convenio</h4>
+                    <span class="as-acc-icon" aria-hidden="true">🤝</span>
+                    <h4>Acompañamiento</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
                   <div class="as-acc-body">
@@ -395,7 +451,7 @@
                 </div>
                 <div class="as-acc-item" data-as-acc="5">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">🕓</span>
+                    <span class="as-acc-icon" aria-hidden="true">🕓</span>
                     <h4>Horarios</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
@@ -406,7 +462,7 @@
                 </div>
                 <div class="as-acc-item" data-as-acc="6">
                   <button class="as-acc-head" type="button">
-                    <span class="as-acc-icon">📋</span>
+                    <span class="as-acc-icon" aria-hidden="true">📋</span>
                     <h4>Registros y fichas</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
@@ -435,7 +491,7 @@
             </div>
             <div class="as-visual-fill">
               <div class="as-visual-quote">
-                <span class="as-visual-quote-icon">🧩</span>
+                <span class="as-visual-quote-icon" aria-hidden="true">🧩</span>
                 <p>Cada ícono representa una de las actividades que se viven día a día en After School.</p>
               </div>
               <div class="as-visual-stats">
@@ -444,7 +500,7 @@
                 <div class="as-visual-stat"><strong>100%</strong><span>supervisado</span></div>
               </div>
               <div class="as-visual-photo">
-                <img src="img/hero/03-fachada-liceo-lateral.jpg" alt="Fachada del Liceo Bicentenario Gabriela Mistral">
+                <img src="img/hero/03-fachada-liceo-lateral.jpg" alt="Fachada del Liceo Bicentenario Gabriela Mistral" loading="lazy">
                 <span>El liceo, sede de este programa</span>
               </div>
               <div class="as-visual-checklist">
@@ -458,7 +514,7 @@
               </div>
               <a class="as-visual-mention" href="https://www.instagram.com/fundacion99?igsi=aGJ2ZGxlMTg2dng3" target="_blank" rel="noopener">
                 <span>◎</span>
-                <div><strong>Con el apoyo de Fundación 99</strong><span>Conoce más en la sección Convenio</span></div>
+                <div><strong>Con el apoyo de Fundación 99</strong><span>Conoce más en la sección Acompañamiento</span></div>
                 <span class="arrow">↗</span>
               </a>
             </div>
@@ -472,7 +528,7 @@
              personas estén a cargo cada semestre. -->
         <div class="as-team-card" id="asEquipo">
           <div class="as-team-head">
-            <span class="as-team-icon">👥</span>
+            <span class="as-team-icon" aria-hidden="true">👥</span>
             <div>
               <h3>Equipo a cargo del programa</h3>
               <p>Quiénes acompañan a los niños y niñas durante cada sesión de After School.</p>
@@ -485,25 +541,25 @@
           </div>
           <div class="as-team-grid">
             <div class="as-team-member as-team-member--lead">
-              <div class="as-team-avatar">👩‍🏫</div>
+              <div class="as-team-avatar" aria-hidden="true">👩‍🏫</div>
               <strong>Caroline Navarrete</strong>
               <span>Educadora de párvulos · Encargada del programa</span>
               <span class="as-team-tag">Coordinación general</span>
             </div>
             <div class="as-team-member">
-              <div class="as-team-avatar">🧑‍🎓</div>
+              <div class="as-team-avatar" aria-hidden="true">🧑‍🎓</div>
               <strong>Nombre Apellido</strong>
               <span>Estudiante en práctica · Atención de Párvulos</span>
               <span class="as-team-tag">Apoyo en tareas</span>
             </div>
             <div class="as-team-member">
-              <div class="as-team-avatar">🧑‍🎓</div>
+              <div class="as-team-avatar" aria-hidden="true">🧑‍🎓</div>
               <strong>Nombre Apellido</strong>
               <span>Estudiante en práctica · Atención de Párvulos</span>
               <span class="as-team-tag">Juegos y recreación</span>
             </div>
             <div class="as-team-member">
-              <div class="as-team-avatar">🧑‍🎓</div>
+              <div class="as-team-avatar" aria-hidden="true">🧑‍🎓</div>
               <strong>Nombre Apellido</strong>
               <span>Estudiante en práctica · Atención de Párvulos</span>
               <span class="as-team-tag">Arte y manualidades</span>
@@ -549,24 +605,24 @@
         <div class="as-contact-grid">
           <div class="contact-info">
             <div class="info-row">
-              <div class="ico ico-coral">👩‍🏫</div>
+              <div class="ico ico-coral" aria-hidden="true">👩‍🏫</div>
               <div><strong>Encargada</strong><span>Profesora Caroline Navarrete, educación parvularia</span></div>
             </div>
             <div class="info-row">
-              <div class="ico ico-coral">✉</div>
-              <div><strong>Correo</strong><span>afterschool@liceogabrielamistral.cl</span></div>
+              <div class="ico ico-coral" aria-hidden="true">✉</div>
+              <div><strong>Correo</strong><span class="js-email" data-user="afterschool" data-domain="liceogabrielamistral.cl"></span></div>
             </div>
             <div class="info-row">
-              <div class="ico ico-coral">☎</div>
+              <div class="ico ico-coral" aria-hidden="true">☎</div>
               <div><strong>Teléfono</strong><span>+56 9 5416 1156</span></div>
             </div>
             <div class="info-row">
-              <div class="ico ico-coral">🕓</div>
+              <div class="ico ico-coral" aria-hidden="true">🕓</div>
               <div><strong>Horario del programa</strong><span>Miércoles y jueves, de 16:00 a 17:30 hrs.</span></div>
             </div>
           </div>
           <div class="contact-cta contact-cta--coral">
-            <div class="contact-cta-icon">✉</div>
+            <div class="contact-cta-icon" aria-hidden="true">✉</div>
             <h3>¿Tienes una consulta sobre After School?</h3>
             <p>Completa el formulario en una página aparte y la encargada te responderá a la brevedad.</p>
             <a class="btn contact-cta-btn contact-cta-btn--coral" href="contacto-afterschool.html" target="_blank" rel="noopener">
@@ -609,7 +665,7 @@
         <p class="follow-sub">Fotos del día a día, actividades, reconocimientos de nuestros estudiantes y avisos urgentes — síguenos para no perderte nada.</p>
         <div class="follow-cards">
           <a class="follow-card follow-fb" href="https://web.facebook.com/Lgmistral" target="_blank" rel="noopener">
-            <span class="follow-ico">f</span>
+            <span class="follow-ico" aria-hidden="true">f</span>
             <span class="follow-info">
               <strong>Facebook</strong>
               <span>Liceo Gabriela Mistral</span>
@@ -617,7 +673,7 @@
             <span class="follow-arrow">↗</span>
           </a>
           <a class="follow-card follow-ig" href="https://www.instagram.com/liceo.bgm.m/" target="_blank" rel="noopener">
-            <span class="follow-ico">◎</span>
+            <span class="follow-ico" aria-hidden="true">◎</span>
             <span class="follow-info">
               <strong>Instagram</strong>
               <span>@liceo.bgm.m</span>
@@ -664,26 +720,32 @@
       <div class="contact-grid">
         <div class="contact-info">
           <div class="info-row">
-            <div class="ico">✉</div>
-            <div><strong>Correo Director</strong><span>arturo.alvear@eduvaldivia.gob.cl</span></div>
-            <div><strong>Correo Secretaria</strong><span>rosa.perez@eduvaldivia.gob.cl</span></div>
+            <div class="ico" aria-hidden="true">✉</div>
+            <div><strong>Correo Director</strong><span class="js-email" data-user="arturo.alvear" data-domain="eduvaldivia.gob.cl"></span></div>
           </div>
           <div class="info-row">
-            <div class="ico">☎</div>
+            <div class="ico" aria-hidden="true">✉</div>
+            <div><strong>Correo Secretaria</strong><span class="js-email" data-user="rosa.perez" data-domain="eduvaldivia.gob.cl"></span></div>
+          </div>
+          <div class="info-row">
+            <div class="ico" aria-hidden="true">☎</div>
             <div><strong>Teléfono Inspectoría General</strong><span>632 241230</span></div>
+          </div>
+          <div class="info-row">
+            <div class="ico" aria-hidden="true">☎</div>
             <div><strong>Teléfono Secretaria</strong><span>632 241231</span></div>
           </div>
           <div class="info-row">
-            <div class="ico">⌂</div>
+            <div class="ico" aria-hidden="true">⌂</div>
             <div><strong>Dirección</strong><span>Bernardo O'Higgins #306, Máfil, Los Ríos, Chile</span></div>
           </div>
           <div class="info-row">
-            <div class="ico">◷</div>
+            <div class="ico" aria-hidden="true">◷</div>
             <div><strong>Atención secretaría</strong><span>Lunes a viernes, 08:30 a 17:00</span></div>
           </div>
         </div>
         <div class="contact-cta">
-          <div class="contact-cta-icon">✉</div>
+          <div class="contact-cta-icon" aria-hidden="true">✉</div>
           <h3>¿Tienes una consulta?</h3>
           <p>Completa el formulario de contacto en una página aparte y te responderemos a la brevedad.</p>
           <a class="btn btn-gold contact-cta-btn" href="contacto.html" target="_blank" rel="noopener">
@@ -728,13 +790,14 @@
 
 <footer>
   <div class="wrap footer-row">
-    <span>© 2026 Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
+    <span>© <span class="js-year">2026</span> Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
     <span>🛠️ Hecha por 4° TP Programación - 2026 - Lider de Proyecto "Damian Aravena".</span>
-    <span class="footer-contact">☎️ arturo.alvear@eduvaldivia.gob.cl - rosa.perez@eduvaldivia.gob.cl</span>
+    <span class="footer-contact">☎️ <span class="js-email" data-user="arturo.alvear" data-domain="eduvaldivia.gob.cl"></span> - <span class="js-email" data-user="rosa.perez" data-domain="eduvaldivia.gob.cl"></span></span>
     <span>🎓 Esta pagina esta hecha con todo el esfuerzo y cariño hacia el Liceo.</span>
   </div>
 </footer>
 
-<script src="java.js"></script>
+<script src="java.js?v=2"></script>
+<button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
 </body>
 </html>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /contacto.html
+Disallow: /contacto-afterschool.html
+
+Sitemap: https://www.liceogabrielamistral.cl/sitemap.xml
