@@ -1215,6 +1215,70 @@ section{padding:0;}
 .follow-arrow{font-size:1.2rem;color:var(--gold);flex:0 0 auto;transition:transform .25s ease;}
 .follow-card:hover .follow-arrow{transform:translate(3px,-3px);}
 
+.social-embeds{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  margin-top:28px;position:relative;z-index:1;
+  align-items:start;
+}
+.social-embed-frame{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+  min-height:200px;
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.55);
+}
+.social-embed-frame iframe{max-width:100%;display:block;}
+
+/* Encabezado decorado, igual para Facebook e Instagram: icono de marca,
+   nombre de la cuenta y un botón directo al perfil. Así ambas tarjetas
+   se ven parte del mismo diseño, en vez de solo una etiqueta de texto. */
+.social-embed-head{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:14px 18px;
+}
+.social-embed-head--fb{background:linear-gradient(135deg,#1877f2,#0e5cd6);}
+.social-embed-head--ig{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);}
+.social-embed-head-ico{
+  width:34px;height:34px;flex:0 0 auto;border-radius:10px;
+  background:rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:700;color:#fff;
+}
+.social-embed-head-text{display:flex;flex-direction:column;gap:1px;flex:1;min-width:120px;color:#fff;}
+.social-embed-head-text strong{font-size:.95rem;}
+.social-embed-head-text span{font-size:.74rem;color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;}
+.social-embed-head-link{
+  font-size:.76rem;color:#fff;text-decoration:none;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.55);padding:6px 12px;border-radius:999px;
+  transition:background .2s ease;
+}
+.social-embed-head-link:hover{background:rgba(255,255,255,.2);}
+
+.social-embed-body{
+  flex:1;width:100%;
+  background:rgba(255,255,255,.03);
+  display:flex;align-items:center;justify-content:center;
+  min-height:420px;
+}
+.social-embed-fallback{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-align:center;padding:40px 24px;text-decoration:none;color:#fff;
+  width:100%;
+}
+.social-embed-fallback-ico{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px;
+}
+.social-embed-fallback-ico--fb{background:linear-gradient(135deg,#1877f2,#0e5cd6);}
+.social-embed-fallback strong{font-size:1rem;}
+.social-embed-fallback span{font-size:.82rem;color:rgba(255,255,255,.65);font-family:'IBM Plex Mono',monospace;}
+.social-embed-fallback-arrow{color:var(--gold);font-size:1.1rem;}
+@media (max-width:900px){
+  .social-embeds{grid-template-columns:1fr;}
+}
+
 /* ---------- AGENDA / CALENDARIO ---------- */
 .events-block{margin-bottom:52px;}
 .events-head{margin-bottom:18px;}
