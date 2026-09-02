@@ -106,6 +106,9 @@
     return true;
   }
 
+  // Correo al que llega el mensaje (mismo que se muestra en la página)
+  const DESTINATARIO = 'afterschool@liceogabrielamistral.cl';
+
   const form = document.getElementById('asContactPageForm');
   const successEl = document.getElementById('asContactPageSuccess');
   const fieldIds = ['asfName', 'asfEmail', 'asfMessage'];
@@ -129,7 +132,20 @@
       return;
     }
 
-    successEl.textContent = '¡Gracias! Tu consulta sobre After School quedó registrada (formulario de ejemplo — conéctalo a tu correo o backend).';
+    const nombre = document.getElementById('asfName').value.trim();
+    const correo = document.getElementById('asfEmail').value.trim();
+    const mensaje = document.getElementById('asfMessage').value.trim();
+
+    const asuntoCorreo = `Consulta After School — ${nombre}`;
+    const cuerpoCorreo = `Nombre del apoderado: ${nombre}\nCorreo de contacto: ${correo}\n\n${mensaje}`;
+
+    const mailtoUrl = `mailto:${DESTINATARIO}` +
+      `?subject=${encodeURIComponent(asuntoCorreo)}` +
+      `&body=${encodeURIComponent(cuerpoCorreo)}`;
+
+    window.location.href = mailtoUrl;
+
+    successEl.textContent = 'Se abrió tu aplicación de correo con el mensaje listo — solo debes presionar "Enviar" ahí.';
     form.reset();
     fields.forEach(f => setFieldError(f, ''));
   });
