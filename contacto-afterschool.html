@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de contacto After School · Liceo Bicentenario Gabriela Mistral</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/galeria/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body class="contact-page-body">
+
+<header class="contact-page-header">
+  <div class="wrap contact-page-header-row">
+    <a href="index.html" class="brand">
+      <img src="img/galeria/escudo.jpg" alt="Escudo Liceo Bicentenario Gabriela Mistral" onerror="this.style.display='none'">
+      <div class="brand-text">
+        <strong>Liceo Bicentenario</strong>
+        <span>Gabriela Mistral · Desde 1950</span>
+      </div>
+    </a>
+    <a href="index.html" class="contact-page-back">← Volver al sitio</a>
+  </div>
+</header>
+
+<main class="contact-page-main">
+  <div class="wrap">
+    <div class="contact-page-card">
+
+      <div class="contact-page-side contact-page-side--coral">
+        <p class="eyebrow">Contacto After School</p>
+        <h1>Escríbenos por After School</h1>
+        <p>Para consultas específicas del programa —admisión, horarios o el contrato-compromiso— completa el formulario o contacta directamente a la encargada:</p>
+
+        <div class="contact-info contact-page-info">
+          <div class="info-row">
+            <div class="ico">👩‍🏫</div>
+            <div><strong>Encargada</strong><span>Profesora Caroline Navarrete, educación parvularia</span></div>
+          </div>
+          <div class="info-row">
+            <div class="ico">✉</div>
+            <div><strong>Correo</strong><span>afterschool@liceogabrielamistral.cl</span></div>
+          </div>
+          <div class="info-row">
+            <div class="ico">☎</div>
+            <div><strong>Teléfono</strong><span>+56 9 5416 1156</span></div>
+          </div>
+          <div class="info-row">
+            <div class="ico">🕓</div>
+            <div><strong>Horario del programa</strong><span>Miércoles y jueves, de 16:00 a 17:30 hrs.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-page-form-side">
+        <h2>Envíanos tu consulta</h2>
+        <form id="asContactPageForm" novalidate>
+          <div class="field">
+            <input type="text" id="asfName" placeholder="Nombre del apoderado" required>
+            <span class="field-msg"></span>
+          </div>
+          <div class="field">
+            <input type="email" id="asfEmail" placeholder="Correo electrónico" required>
+            <span class="field-msg"></span>
+          </div>
+          <div class="field">
+            <textarea id="asfMessage" placeholder="Escribe tu consulta sobre After School" required></textarea>
+            <span class="field-msg"></span>
+          </div>
+          <button type="submit">Enviar mensaje</button>
+          <p class="form-success" id="asContactPageSuccess" role="status"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Liceo Bicentenario Gabriela Mistral. Fundado en 1950.</span>
+    <span class="footer-contact">✉️ afterschool@liceogabrielamistral.cl</span>
+  </div>
+</footer>
+
+<script>
+  function setFieldError(input, message){
+    input.classList.toggle('invalid', Boolean(message));
+    const msgEl = input.closest('.field')?.querySelector('.field-msg');
+    if(msgEl) msgEl.textContent = message || '';
+  }
+
+  function validateField(input){
+    if(input.validity.valueMissing){
+      setFieldError(input, 'Este campo es obligatorio.');
+      return false;
+    }
+    if(input.type === 'email' && input.validity.typeMismatch){
+      setFieldError(input, 'Ingresa un correo válido.');
+      return false;
+    }
+    setFieldError(input, '');
+    return true;
+  }
+
+  const form = document.getElementById('asContactPageForm');
+  const successEl = document.getElementById('asContactPageSuccess');
+  const fieldIds = ['asfName', 'asfEmail', 'asfMessage'];
+
+  fieldIds.forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener('blur', () => validateField(input));
+    input.addEventListener('input', () => {
+      if(input.classList.contains('invalid')) validateField(input);
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = fieldIds.map(id => document.getElementById(id));
+    const allValid = fields.map(validateField).every(Boolean);
+
+    if(!allValid){
+      successEl.textContent = '';
+      fields.find(f => f.classList.contains('invalid'))?.focus();
+      return;
+    }
+
+    successEl.textContent = '¡Gracias! Tu consulta sobre After School quedó registrada (formulario de ejemplo — conéctalo a tu correo o backend).';
+    form.reset();
+    fields.forEach(f => setFieldError(f, ''));
+  });
+</script>
+</body>
+</html>

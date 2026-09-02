@@ -800,57 +800,6 @@ const AS_AVISOS = [
 renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados para After School. Cuando haya novedades del programa, aparecerán aquí.');
 
 // ============ FORMULARIOS DE CONTACTO ============
-function setFieldError(input, message){
-  input.classList.toggle('invalid', Boolean(message));
-  const msgEl = input.closest('.field')?.querySelector('.field-msg');
-  if(msgEl) msgEl.textContent = message || '';
-}
-
-function validateField(input){
-  if(input.validity.valueMissing){
-    setFieldError(input, 'Este campo es obligatorio.');
-    return false;
-  }
-  if(input.type === 'email' && input.validity.typeMismatch){
-    setFieldError(input, 'Ingresa un correo válido.');
-    return false;
-  }
-  setFieldError(input, '');
-  return true;
-}
-
-function wireContactForm(formId, successId, fieldIds, successMessage){
-  const form = document.getElementById(formId);
-  const successEl = document.getElementById(successId);
-  if(!form) return;
-
-  fieldIds.forEach(id => {
-    const input = document.getElementById(id);
-    input?.addEventListener('blur', () => validateField(input));
-    input?.addEventListener('input', () => {
-      if(input.classList.contains('invalid')) validateField(input);
-    });
-  });
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fields = fieldIds.map(id => document.getElementById(id));
-    const allValid = fields.map(validateField).every(Boolean);
-
-    if(!allValid){
-      successEl.textContent = '';
-      fields.find(f => f.classList.contains('invalid'))?.focus();
-      return;
-    }
-
-    successEl.textContent = successMessage;
-    form.reset();
-    fields.forEach(f => setFieldError(f, ''));
-  });
-}
-
-wireContactForm('contactForm', 'formSuccess', ['fName','fEmail','fMessage'],
-  '¡Gracias! Tu mensaje quedó registrado (formulario de ejemplo — conéctalo a tu correo o backend).');
-
-wireContactForm('asContactForm', 'asFormSuccess', ['asfName','asfEmail','asfMessage'],
-  '¡Gracias! Tu consulta sobre After School quedó registrada (formulario de ejemplo — conéctalo a tu correo o backend).');
+// El formulario de contacto general y el de After School ahora viven en
+// páginas aparte (contacto.html y contacto-afterschool.html), cada una con
+// su propia validación. Aquí ya no hay formularios que cablear.
