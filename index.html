@@ -28,7 +28,7 @@
 <!-- Apariencia en dispositivos móviles / al agregar a la pantalla de inicio -->
 <meta name="theme-color" content="#132C54">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="img/galeria/escudo.jpg">
+<link rel="icon" type="image/jpeg" href="img/galeria/escudo.jpg">
 <link rel="apple-touch-icon" href="img/galeria/escudo.jpg">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Liceo Gabriela Mistral">
@@ -197,34 +197,87 @@
           </div>
         </div>
         <div class="pillars">
-          <button class="pillar" data-flip="letras">
-            <div class="pillar-face pillar-front">
-              <div class="glyph g-navy" aria-hidden="true">Aa</div>
-              <h3>Letras</h3>
-              <p>Lenguaje, historia y pensamiento crítico, con la palabra como herramienta de trabajo.</p>
+          <div class="pillar-item">
+            <button class="pillar" type="button" data-flip="letras" aria-expanded="false" aria-controls="pillarMore-letras">
+              <div class="pillar-face pillar-front">
+                <div class="glyph g-navy" aria-hidden="true">Aa</div>
+                <h3>Letras</h3>
+                <p>Lenguaje, historia y pensamiento crítico, con la palabra como herramienta de trabajo.</p>
+              </div>
+              <span class="pillar-toggle" aria-hidden="true">＋</span>
+            </button>
+            <div class="pillar-more" id="pillarMore-letras">
+              <p>Desde Lengua y Literatura hasta Historia y Filosofía, la meta es que cada estudiante piense con claridad y lo exprese con propiedad: leer, argumentar y escribir bien no es solo una habilidad de humanistas, es una herramienta que se usa en todas las especialidades del liceo.</p>
             </div>
-          </button>
-          <button class="pillar" data-flip="ciencias">
-            <div class="pillar-face pillar-front">
-              <div class="glyph g-green" aria-hidden="true">⚗</div>
-              <h3>Ciencias</h3>
-              <p>Física, química y biología aplicadas, con base experimental desde primer año.</p>
+          </div>
+          <div class="pillar-item">
+            <button class="pillar" type="button" data-flip="ciencias" aria-expanded="false" aria-controls="pillarMore-ciencias">
+              <div class="pillar-face pillar-front">
+                <div class="glyph g-green" aria-hidden="true">⚗</div>
+                <h3>Ciencias</h3>
+                <p>Física, química y biología aplicadas, con base experimental desde primer año.</p>
+              </div>
+              <span class="pillar-toggle" aria-hidden="true">＋</span>
+            </button>
+            <div class="pillar-more" id="pillarMore-ciencias">
+              <p>Los conceptos no se quedan solo en la pizarra: se trabajan con base experimental desde primer año, para que los estudiantes midan, comprueben y se equivoquen en el laboratorio antes de egresar con una base científica sólida.</p>
             </div>
-          </button>
-          <button class="pillar" data-flip="laboratorio">
-            <div class="pillar-face pillar-front">
-              <div class="glyph g-gold" aria-hidden="true">🧪</div>
-              <h3>Laboratorio</h3>
-              <p>Especialidades técnicas con práctica real en taller y laboratorio, no solo en el papel.</p>
+          </div>
+          <div class="pillar-item">
+            <button class="pillar" type="button" data-flip="laboratorio" aria-expanded="false" aria-controls="pillarMore-laboratorio">
+              <div class="pillar-face pillar-front">
+                <div class="glyph g-gold" aria-hidden="true">🧪</div>
+                <h3>Laboratorio</h3>
+                <p>Especialidades técnicas con práctica real en taller y laboratorio, no solo en el papel.</p>
+              </div>
+              <span class="pillar-toggle" aria-hidden="true">＋</span>
+            </button>
+            <div class="pillar-more" id="pillarMore-laboratorio">
+              <p>Nuestras especialidades técnico-profesionales combinan teoría con práctica real en taller, como ocurre con la especialidad de Atención de Párvulos, cuyas estudiantes aplican lo aprendido directamente en nuestro propio programa After School.</p>
             </div>
-          </button>
-          <button class="pillar" data-flip="tecnologia">
-            <div class="pillar-face pillar-front">
-              <div class="glyph g-blue" aria-hidden="true">@</div>
-              <h3>Tecnología</h3>
-              <p>Herramientas digitales y pensamiento computacional integrados a todas las asignaturas.</p>
+          </div>
+          <div class="pillar-item">
+            <button class="pillar" type="button" data-flip="tecnologia" aria-expanded="false" aria-controls="pillarMore-tecnologia">
+              <div class="pillar-face pillar-front">
+                <div class="glyph g-blue" aria-hidden="true">@</div>
+                <h3>Tecnología</h3>
+                <p>Herramientas digitales y pensamiento computacional integrados a todas las asignaturas.</p>
+              </div>
+              <span class="pillar-toggle" aria-hidden="true">＋</span>
+            </button>
+            <div class="pillar-more" id="pillarMore-tecnologia">
+              <p>El pensamiento computacional y las herramientas digitales no se enseñan aparte: se integran a las demás asignaturas, para que el manejo de la tecnología sea una habilidad transversal y no un curso aislado.</p>
             </div>
-          </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="moments">
+        <div class="moments-head">
+          <p class="eyebrow">Vida escolar</p>
+          <h3>Nuestra comunidad, en imágenes</h3>
+        </div>
+        <div class="moments-grid">
+          <figure class="moment-card">
+            <div class="moment-media">
+              <img src="img/nosotros/comunidad-en-ceremonia.jpg" alt="Autoridades, docentes y estudiantes reunidos en una ceremonia oficial del liceo, con el estandarte de fondo" loading="lazy">
+              <span class="moment-tag">Desde 1950</span>
+            </div>
+            <figcaption class="moment-text">
+              <h4>Una comunidad que se reúne en torno al liceo</h4>
+              <p>Autoridades, docentes, apoderados y estudiantes comparten cada ceremonia oficial bajo el mismo estandarte que nos identifica hace más de siete décadas.</p>
+            </figcaption>
+          </figure>
+          <figure class="moment-card">
+            <div class="moment-media">
+              <img src="img/nosotros/estandarte-del-liceo.jpg" alt="Estudiantes del liceo portando con orgullo el estandarte oficial Liceo Bicentenario Gabriela Mistral, Máfil, 1950" loading="lazy">
+              <span class="moment-tag">Tradición</span>
+            </div>
+            <figcaption class="moment-text">
+              <h4>El estandarte que llevamos con orgullo</h4>
+              <p>Nuestras estudiantes portan el estandarte del liceo en cada acto, un símbolo que representa la identidad y la historia que compartimos como comunidad educativa.</p>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
@@ -233,6 +286,7 @@
   <!-- ---------- ADMISION ---------- -->
   <section class="panel" id="admision" role="tabpanel" aria-labelledby="tabbtn-admision">
     <div class="admission-inner">
+      <div class="admission-bg" style="background-image:url('img/admision/ceremonia-liceo.jpg')" aria-hidden="true"></div>
       <div class="wrap">
         <div class="section-head">
           <div class="divider"></div>
@@ -242,42 +296,42 @@
         </div>
         <div class="stepper" id="stepper">
           <div class="step" data-step="1">
-            <button class="step-head">
+            <button class="step-head" aria-expanded="true" aria-controls="stepBody1">
               <span class="num">01</span>
               <h3>Postula</h3>
               <span class="step-toggle">＋</span>
             </button>
-            <div class="step-body">
+            <div class="step-body" id="stepBody1">
               <p>Completa el formulario de postulación del Sistema de Admisión Escolar (SAE) en las fechas oficiales del proceso.</p>
             </div>
           </div>
           <div class="step" data-step="2">
-            <button class="step-head">
+            <button class="step-head" aria-expanded="false" aria-controls="stepBody2">
               <span class="num">02</span>
               <h3>Revisa resultados</h3>
               <span class="step-toggle">＋</span>
             </button>
-            <div class="step-body">
+            <div class="step-body" id="stepBody2">
               <p>Consulta el resultado de la asignación en la plataforma del SAE y también en nuestro liceo.</p>
             </div>
           </div>
           <div class="step" data-step="3">
-            <button class="step-head">
+            <button class="step-head" aria-expanded="false" aria-controls="stepBody3">
               <span class="num">03</span>
               <h3>Entrega documentos</h3>
               <span class="step-toggle">＋</span>
             </button>
-            <div class="step-body">
+            <div class="step-body" id="stepBody3">
               <p>Certificado de nacimiento, informe de notas y ficha de salud del estudiante.</p>
             </div>
           </div>
           <div class="step" data-step="4">
-            <button class="step-head">
+            <button class="step-head" aria-expanded="false" aria-controls="stepBody4">
               <span class="num">04</span>
               <h3>Matricula</h3>
               <span class="step-toggle">＋</span>
             </button>
-            <div class="step-body">
+            <div class="step-body" id="stepBody4">
               <p>Firma la matrícula en secretaría dentro del plazo indicado y elige especialidad.</p>
             </div>
           </div>
@@ -398,45 +452,45 @@
               <h3 class="as-menu-title">Sobre el programa</h3>
               <div class="as-accordion">
                 <div class="as-acc-item open" data-as-acc="1">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="true" aria-controls="asAccBody1">
                     <span class="as-acc-icon" aria-hidden="true">🎯</span>
                     <h4>Finalidad del programa</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody1">
                     <p>La finalidad del After School es, y será siempre, pedagógica. No es un servicio de guardería ni un simple espacio para "hacer tiempo" hasta que lleguen los apoderados: es un programa educativo formal del liceo, sin fines de lucro, que busca favorecer el bienestar emocional, el aprendizaje significativo y el desarrollo integral de cada niño y niña que participa en él.</p>
                     <p>Cada actividad —ya sea el apoyo en las tareas, el juego dirigido, las manualidades o los momentos de lectura— se planifica con una intención formativa detrás, alineada con los principios de la educación parvularia y con el proyecto educativo del liceo. Este carácter pedagógico no es solo una declaración de buenas intenciones: queda formalmente establecido en el Compromiso de Participación que firma cada familia al momento de inscribir a su hijo o hija, documento que explicita tanto los objetivos del programa como los derechos y responsabilidades de cada parte involucrada.</p>
                   </div>
                 </div>
                 <div class="as-acc-item" data-as-acc="2">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="false" aria-controls="asAccBody2">
                     <span class="as-acc-icon" aria-hidden="true">👩‍🏫</span>
                     <h4>Encargada</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody2">
                     <p>El programa After School está bajo la responsabilidad de la profesora Caroline Navarrete, educadora de párvulos y Coordinadora del Área Técnico-Profesional del liceo. Ella es quien diseña, organiza y supervisa el funcionamiento completo del espacio, velando por que cada sesión cumpla con la finalidad pedagógica del programa y con los estándares de cuidado que las familias esperan del establecimiento.</p>
                     <p>En la práctica, las actividades del día a día son impartidas por estudiantes de la especialidad de Atención de Párvulos, quienes encuentran en After School un espacio real de práctica temprana: planifican juegos, acompañan tareas y desarrollan habilidades de mediación con los niños y niñas, siempre bajo la mirada, la guía y la supervisión directa de la profesora Navarrete. Esta dupla —estudiantes en formación y una profesional a cargo— permite que el programa combine cercanía generacional con la seguridad de una conducción experta.</p>
                   </div>
                 </div>
                 <div class="as-acc-item" data-as-acc="3">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="false" aria-controls="asAccBody3">
                     <span class="as-acc-icon" aria-hidden="true">🌱</span>
                     <h4>Cómo nació la idea</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody3">
                     <p>La idea de After School nació al observar una necesidad muy concreta dentro de la comunidad escolar de Máfil: un número importante de padres, madres y apoderados no logra coincidir con el horario de salida de los cursos más pequeños, ya sea porque su jornada laboral se extiende más allá de esa hora, porque deben trasladarse desde localidades rurales o porque, simplemente, no cuentan con una red de apoyo cercana que pueda hacerse cargo del cuidado de los niños en ese tramo del día.</p>
                     <p>Frente a esa realidad, y en línea con la vocación técnico-profesional del liceo, surgió la posibilidad de transformar una necesidad de la comunidad en una oportunidad formativa: crear un espacio de cuidado y acompañamiento después de clases que, a la vez, sirviera como campo de práctica real para los estudiantes de la especialidad de Atención de Párvulos. Así, lo que comenzó como una respuesta a un problema de conciliación entre trabajo y crianza se convirtió en un programa educativo estable, que hoy beneficia tanto a las familias como a la formación técnica de nuestros estudiantes.</p>
                   </div>
                 </div>
                 <div class="as-acc-item" data-as-acc="4">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="false" aria-controls="asAccBody4">
                     <span class="as-acc-icon" aria-hidden="true">🤝</span>
                     <h4>Acompañamiento</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody4">
                     <p>After School funciona gracias a un convenio de colaboración con <strong>Fundación 99</strong>, organización que acompaña y apoya el desarrollo del programa desde sus inicios. Este trabajo conjunto ha permitido fortalecer la propuesta pedagógica del espacio, sumar nuevas miradas al proyecto y dar mayor sustento a una iniciativa que nació desde las propias necesidades de nuestra comunidad escolar.</p>
                     <p>Valoramos profundamente esta alianza y el compromiso que Fundación 99 ha mostrado con la educación pública y con el bienestar de los niños y niñas de Máfil. Con mucho cariño la reconocemos aquí, y las invitamos a conocer y seguir su trabajo en la siguiente plataforma:</p>
                     <a class="mention-card" href="https://www.instagram.com/fundacion99?igsi=aGJ2ZGxlMTg2dng3" target="_blank" rel="noopener">
@@ -450,23 +504,23 @@
                   </div>
                 </div>
                 <div class="as-acc-item" data-as-acc="5">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="false" aria-controls="asAccBody5">
                     <span class="as-acc-icon" aria-hidden="true">🕓</span>
                     <h4>Horarios</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody5">
                     <p>After School funciona los días miércoles y jueves, entre las 16:00 y las 17:30 horas, inmediatamente al término de la jornada escolar de los cursos menores. Este horario fue definido pensando en el tramo del día donde más apoderados y apoderadas manifestaron dificultades para llegar a retirar a sus hijos, y se revisa periódicamente según la disponibilidad de las estudiantes en práctica y las necesidades de las familias inscritas.</p>
                     <p>Es importante que las familias respeten tanto la hora de ingreso como la de salida establecida: el programa está diseñado como una extensión formativa dentro de un bloque horario acotado, y no como un servicio de cuidado abierto o extendido más allá de lo estipulado en el Compromiso de Participación.</p>
                   </div>
                 </div>
                 <div class="as-acc-item" data-as-acc="6">
-                  <button class="as-acc-head" type="button">
+                  <button class="as-acc-head" type="button" aria-expanded="false" aria-controls="asAccBody6">
                     <span class="as-acc-icon" aria-hidden="true">📋</span>
                     <h4>Registros y fichas</h4>
                     <span class="as-acc-toggle">＋</span>
                   </button>
-                  <div class="as-acc-body">
+                  <div class="as-acc-body" id="asAccBody6">
                     <p>Para participar del programa, cada familia debe completar una ficha de admisión con los datos del estudiante y de su núcleo familiar, información que permite al equipo a cargo conocer mejor el contexto de cada niño y niña y actuar con mayor pertinencia frente a cualquier necesidad particular.</p>
                     <p>Junto con la ficha, la familia firma un Compromiso de Participación: un documento que deja por escrito los horarios de funcionamiento del programa, la finalidad pedagógica que lo rige y los deberes tanto del liceo como de los apoderados —entre ellos, la puntualidad en el retiro de los estudiantes y el respeto por las normas internas del espacio. Este documento puede revisarse y descargarse a continuación:</p>
                     <a class="as-doc-link" href="documentos/compromiso-participacion-after-school.pdf" target="_blank" rel="noopener">
@@ -479,20 +533,20 @@
           </div>
           <div class="as-visual-wrap">
             <div class="as-visual" id="asVisual">
-              <button class="as-icon" type="button" aria-label="Hora de tareas">✎</button>
-              <button class="as-icon" type="button" aria-label="Organización del día">▦</button>
-              <button class="as-icon" type="button" aria-label="Juego libre">☺</button>
-              <button class="as-icon" type="button" aria-label="Pintura">🎨</button>
+              <button class="as-icon" type="button" aria-label="Hora de tareas" aria-pressed="false">✎</button>
+              <button class="as-icon" type="button" aria-label="Organización del día" aria-pressed="false">▦</button>
+              <button class="as-icon" type="button" aria-label="Juego libre" aria-pressed="false">☺</button>
+              <button class="as-icon" type="button" aria-label="Pintura" aria-pressed="false">🎨</button>
               <div class="as-center" aria-hidden="true">AS</div>
-              <button class="as-icon" type="button" aria-label="Manualidades">✂</button>
-              <button class="as-icon" type="button" aria-label="Música">♫</button>
-              <button class="as-icon" type="button" aria-label="Reconocimientos">★</button>
-              <button class="as-icon" type="button" aria-label="El espacio After School">▢</button>
+              <button class="as-icon" type="button" aria-label="Manualidades" aria-pressed="false">✂</button>
+              <button class="as-icon" type="button" aria-label="Música" aria-pressed="false">♫</button>
+              <button class="as-icon" type="button" aria-label="Reconocimientos" aria-pressed="false">★</button>
+              <button class="as-icon" type="button" aria-label="El espacio After School" aria-pressed="false">▢</button>
             </div>
             <div class="as-visual-fill">
-              <div class="as-visual-quote">
-                <span class="as-visual-quote-icon" aria-hidden="true">🧩</span>
-                <p>Cada ícono representa una de las actividades que se viven día a día en After School.</p>
+              <div class="as-visual-quote" aria-live="polite">
+                <span class="as-visual-quote-icon" id="asIconQuoteIcon" aria-hidden="true">🧩</span>
+                <p id="asIconQuoteText">Cada ícono representa una actividad de After School. Tócalo para conocerla.</p>
               </div>
               <div class="as-visual-stats">
                 <div class="as-visual-stat"><strong>2</strong><span>días a la semana</span></div>
@@ -577,9 +631,9 @@
           <div class="divider"></div>
           <p class="eyebrow">Avisos After School</p>
           <h2>Avisos y novedades del programa</h2>
-          <p>Cambios de horario, actividades especiales y avisos puntuales del espacio After School (distintos de las noticias generales del liceo).</p>
+          <p>Cambios de horario, actividades especiales y avisos puntuales del espacio After School. Toca un afiche para verlo en tamaño completo.</p>
         </div>
-        <div class="news-grid" id="asAvisosGrid">
+        <div class="news-grid news-grid--avisos" id="asAvisosGrid">
           <!-- Se genera desde la lista AS_AVISOS en java.js -->
         </div>
       </div>
@@ -786,6 +840,19 @@
     <span id="lightboxCaption" class="lightbox-caption"></span>
   </div>
   <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Foto siguiente">›</button>
+</div>
+
+<!-- Visor de afiches (Avisos): mismo espíritu que el lightbox de fotos, pero con
+     su propio estilo cálido para que se note que es un afiche, no una foto. -->
+<div class="poster-lightbox" id="posterLightbox" aria-hidden="true">
+  <button class="poster-lightbox-close" id="posterLightboxClose" aria-label="Cerrar afiche">✕</button>
+  <button class="poster-lightbox-nav poster-lightbox-prev" id="posterLightboxPrev" aria-label="Afiche anterior">‹</button>
+  <div class="poster-lightbox-box" id="posterLightboxBox">
+    <span class="poster-lightbox-tag">📌 Afiche</span>
+    <img id="posterLightboxImg" src="" alt="">
+    <span id="posterLightboxCaption" class="poster-lightbox-caption"></span>
+  </div>
+  <button class="poster-lightbox-nav poster-lightbox-next" id="posterLightboxNext" aria-label="Afiche siguiente">›</button>
 </div>
 
 <footer>

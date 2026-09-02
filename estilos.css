@@ -404,6 +404,10 @@ section{padding:0;}
 
 /* ---------- NOSOTROS / PILARES ---------- */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.about-copy{align-self:start;}
+@media (min-width:861px){
+  .about-copy{position:sticky;top:96px;}
+}
 .about-copy p{margin:0 0 16px;color:#333;}
 .about-copy strong{color:var(--navy);}
 .stat-row{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap;}
@@ -412,11 +416,12 @@ section{padding:0;}
 .stat span{font-size:.8rem;color:#666;}
 
 .pillars{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.pillar-item{background:var(--paper);transition:background .2s ease;}
+.pillar-item:hover{background:#fff;}
 .pillar{
-  background:var(--paper);padding:26px 22px;border:none;text-align:left;cursor:pointer;
-  transition:background .2s ease;
+  width:100%;background:none;padding:26px 46px 20px 22px;border:none;text-align:left;cursor:pointer;
+  font-family:inherit;position:relative;display:block;
 }
-.pillar:hover{background:#fff;}
 .pillar .glyph{
   width:40px;height:40px;border-radius:10px;
   display:flex;align-items:center;justify-content:center;
@@ -424,13 +429,63 @@ section{padding:0;}
   color:#fff;font-size:1.1rem;
   transition:transform .25s ease;
 }
-.pillar:hover .glyph{transform:scale(1.1) rotate(-4deg);}
+.pillar-item:hover .glyph{transform:scale(1.1) rotate(-4deg);}
 .pillar h3{font-size:1.02rem;font-weight:600;margin-bottom:6px;color:var(--navy);}
 .pillar p{font-size:.9rem;color:#555;margin:0;}
+.pillar-toggle{
+  position:absolute;top:24px;right:20px;
+  font-size:1.2rem;color:var(--coral);line-height:1;
+  transition:transform .25s ease;
+}
+.pillar-item.open .pillar-toggle{transform:rotate(45deg);}
+.pillar-more{max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease;padding:0 22px;}
+.pillar-item.open .pillar-more{max-height:400px;padding:0 22px 22px;}
+.pillar-more p{font-size:.86rem;color:#444;line-height:1.5;margin:0;border-top:1px dashed var(--line);padding-top:14px;}
 .g-blue{background:var(--blue);}
 .g-green{background:var(--lab-green);}
 .g-gold{background:var(--gold-deep);}
 .g-navy{background:var(--navy);}
+
+/* ---------- NOSOTROS / MOMENTOS (fotos con texto) ---------- */
+.moments{margin-top:64px;}
+.moments-head{margin-bottom:24px;}
+.moments-head .eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:600;
+  color:var(--coral);letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;
+}
+.moments-head h3{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--navy);margin:0;}
+.moments-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.moment-card{
+  margin:0;background:var(--paper);border-radius:20px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 18px 40px -28px rgba(19,44,84,.45);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+.moment-card:hover{transform:translateY(-6px);box-shadow:0 26px 48px -22px rgba(19,44,84,.5);}
+.moment-media{position:relative;aspect-ratio:4/3;overflow:hidden;}
+.moment-media img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s ease;
+}
+.moment-card:hover .moment-media img{transform:scale(1.08);}
+.moment-media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(19,44,84,0) 55%, rgba(19,44,84,.65) 100%);
+  pointer-events:none;
+}
+.moment-tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  background:var(--gold);color:var(--navy);
+  font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.66rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 12px;border-radius:100px;
+  box-shadow:0 8px 18px -8px rgba(0,0,0,.4);
+}
+.moment-text{padding:20px 22px 24px;}
+.moment-text h4{font-family:'Fraunces',serif;font-size:1.08rem;color:var(--navy);margin:0 0 8px;}
+.moment-text p{font-size:.9rem;color:#444;line-height:1.5;margin:0;}
+@media (max-width:860px){
+  .moments-grid{grid-template-columns:1fr;}
+}
 
 /* ---------- NORMAS Y DEBERES ---------- */
 .rules-grid{
@@ -459,7 +514,18 @@ section{padding:0;}
 }
 
 /* ---------- ADMISION / STEPPER ---------- */
-.admission-inner{background:var(--navy);color:#fff;padding:0;}
+.admission-inner{background:var(--navy);color:#fff;padding:0;position:relative;overflow:hidden;}
+.admission-bg{
+  position:absolute;inset:0;z-index:0;
+  background-size:cover;background-position:center 30%;
+  filter:blur(4px) saturate(.85);
+  transform:scale(1.08); /* evita bordes desenfocados visibles */
+}
+.admission-inner::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(19,44,84,.93) 0%, rgba(19,44,84,.9) 55%, rgba(19,44,84,.95) 100%);
+}
+.admission-inner > .wrap{position:relative;z-index:2;}
 .admission-inner .section-head p{color:rgba(255,255,255,.75);}
 .admission-inner .section-head h2{color:#fff;}
 .admission-inner .divider{background:repeating-linear-gradient(90deg,var(--gold) 0 8px, transparent 8px 14px);}
@@ -646,6 +712,10 @@ section{padding:0;}
 .as-visual button.as-icon{cursor:pointer;}
 .as-visual button.as-icon:hover,
 .as-visual button.as-icon:focus-visible{transform:scale(1.08);filter:brightness(1.15);outline:none;}
+.as-visual button.as-icon[aria-pressed="true"]{
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.85);
+  transform:scale(1.06);filter:brightness(1.1);
+}
 .as-visual :nth-child(1){background:var(--coral);}
 .as-visual :nth-child(2){background:var(--gold);}
 .as-visual :nth-child(3){background:var(--blue-soft);}
@@ -863,6 +933,126 @@ section{padding:0;}
   .lightbox-nav{width:40px;height:40px;font-size:1.5rem;}
 }
 
+/* ---------- VISOR DE AFICHES (Avisos) ----------
+   A propósito NO se ve igual al lightbox de fotos de arriba: fondo cálido en
+   vez de azul-navy, tarjeta blanca con acento coral en vez de recorte 4:3,
+   para que quede claro que se está viendo un afiche y no una foto. */
+.poster-lightbox{
+  position:fixed;inset:0;
+  background:linear-gradient(160deg, rgba(19,44,84,.92), rgba(180,67,31,.88));
+  background-size:220% 220%;
+  animation:posterBgDrift 12s ease-in-out infinite;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+  z-index:200;padding:24px;
+}
+@keyframes posterBgDrift{
+  0%,100%{background-position:0% 0%;}
+  50%{background-position:100% 100%;}
+}
+.poster-lightbox.open{opacity:1;pointer-events:auto;}
+.poster-lightbox-box{
+  position:relative;
+  width:fit-content;min-width:260px;max-width:90vw;max-height:88vh;
+  background:#fff;border-radius:20px;
+  border:3px solid var(--gold);
+  padding:14px 14px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.5), 0 0 0 8px rgba(232,170,30,.14);
+  transform:scale(.9) translateY(10px);
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+  overflow:hidden;
+}
+.poster-lightbox.open .poster-lightbox-box{transform:scale(1) translateY(0);}
+/* Confeti sutil de fondo, apenas visible, para que la tarjeta no se sienta plana */
+.poster-lightbox-box::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(circle, rgba(228,105,59,.14) 2px, transparent 2.5px),
+    radial-gradient(circle, rgba(232,170,30,.16) 2px, transparent 2.5px);
+  background-size:34px 34px, 34px 34px;
+  background-position:0 0, 17px 17px;
+  opacity:.5;
+}
+.poster-lightbox-tag{
+  position:relative;z-index:1;
+  align-self:flex-start;
+  background:var(--coral);color:#fff;
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;
+  box-shadow:0 6px 14px -6px rgba(228,105,59,.6);
+}
+.poster-lightbox-box img{
+  position:relative;z-index:1;display:block;
+  width:auto;max-width:100%;max-height:64vh;object-fit:contain;border-radius:10px;
+  animation:posterImgIn .35s .05s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes posterImgIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.poster-lightbox-caption{
+  position:relative;z-index:1;
+  font-family:'Fraunces',serif;font-weight:600;font-size:1rem;
+  color:var(--navy);text-align:center;
+}
+.poster-lightbox-close{
+  position:absolute;top:18px;right:18px;z-index:2;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--navy);color:#fff;border:none;
+  font-size:1.05rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 16px -6px rgba(0,0,0,.5);
+  transition:background .2s ease, transform .2s ease;
+}
+.poster-lightbox-close:hover{background:var(--coral);transform:scale(1.06) rotate(90deg);}
+.poster-lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);
+  color:#fff;font-size:1.8rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease, transform .2s ease;
+  z-index:1;
+}
+.poster-lightbox-nav:hover{background:rgba(255,255,255,.26);transform:translateY(-50%) scale(1.08);}
+.poster-lightbox-nav:active{transform:translateY(-50%) scale(.94);}
+.poster-lightbox-prev{left:clamp(8px, 3vw, 32px);}
+.poster-lightbox-next{right:clamp(8px, 3vw, 32px);}
+
+/* Pantallas medianas y grandes (tablet horizontal, laptop, escritorio):
+   la tarjeta ya no tiene un ancho fijo (eso dejaba mucho espacio en blanco
+   a los lados en afiches angostos/verticales). Ahora solo se define un
+   max-width y un max-height que crecen con la pantalla; el ancho real de
+   la tarjeta lo define la imagen (width:fit-content + img width:auto),
+   así siempre queda "pegada" al afiche sin importar su proporción. */
+@media (min-width:640px){
+  .poster-lightbox-box{max-width:min(560px,85vw);}
+  .poster-lightbox-box img{max-height:74vh;}
+}
+@media (min-width:960px){
+  .poster-lightbox-box{max-width:640px;padding:20px 20px 24px;}
+  .poster-lightbox-box img{max-height:82vh;}
+  .poster-lightbox-caption{font-size:1.15rem;}
+}
+@media (min-width:1400px){
+  .poster-lightbox-box{max-width:720px;}
+  .poster-lightbox-box img{max-height:85vh;}
+}
+@media (min-width:1800px){
+  .poster-lightbox-box{max-width:820px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .poster-lightbox{animation:none;}
+  .poster-lightbox-box img{animation:none;}
+}
+@media (max-width:640px){
+  .poster-lightbox-box{padding:12px 12px 16px;border-radius:16px;}
+  .poster-lightbox-nav{width:38px;height:38px;font-size:1.4rem;}
+  .poster-lightbox-close{width:34px;height:34px;top:12px;right:12px;}
+}
+
 /* ---------- NOTICIAS ---------- */
 .news-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
@@ -894,9 +1084,11 @@ section{padding:0;}
   padding:10px;
   position:relative;
 }
-.news-thumb--poster a{
+.news-thumb--poster-btn{
   display:block;width:100%;height:100%;border-radius:8px;overflow:hidden;
   box-shadow:0 14px 28px -14px rgba(19,44,84,.5);
+  border:none;padding:0;background:none;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
 }
 .news-thumb--poster img{
   width:100%;height:100%;object-fit:contain;object-position:center;
@@ -943,6 +1135,43 @@ section{padding:0;}
 .news-source.src-instagram{color:#c13584;}
 .news-source .src-arrow{display:inline-block;transition:transform .2s ease;}
 .news-source:hover .src-arrow{transform:translate(2px,-2px);}
+
+/* Cinta "Nuevo" para destacar los avisos más recientes */
+.news-ribbon{
+  position:absolute;top:16px;right:-30px;z-index:2;
+  background:var(--coral);color:#fff;
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 34px;transform:rotate(35deg);
+  box-shadow:0 6px 14px -4px rgba(0,0,0,.35);
+}
+
+/* ---------- AVISOS AFTER SCHOOL: tarjetas más grandes y vistosas ---------- */
+.news-grid--avisos{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px;}
+.news-grid--avisos .news-card{
+  border-color:rgba(228,105,59,.3);
+  box-shadow:0 12px 28px -20px rgba(228,105,59,.5);
+}
+.news-grid--avisos .news-card:hover{
+  transform:translateY(-6px) scale(1.015);
+  box-shadow:0 22px 40px -18px rgba(228,105,59,.45);
+}
+.news-grid--avisos .news-thumb--poster{
+  background:linear-gradient(135deg, var(--coral), var(--gold), var(--coral));
+  background-size:220% 220%;
+  animation:avisoGlow 6s ease-in-out infinite;
+}
+@keyframes avisoGlow{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+@media (prefers-reduced-motion: reduce){
+  .news-grid--avisos .news-thumb--poster{animation:none;}
+}
+.news-grid--avisos .news-body h3{font-size:1.1rem;}
+@media (max-width:640px){
+  .news-grid--avisos{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;}
+}
 
 /* ---------- SÍGUENOS ---------- */
 .follow-block{

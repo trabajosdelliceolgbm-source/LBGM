@@ -312,13 +312,61 @@ function maybeAnimateStats(){
 maybeAnimateStats();
 document.getElementById('tabbtn-nosotros')?.addEventListener('click', () => setTimeout(maybeAnimateStats, 50));
 
-// ============ PILARES (micro-interacción) ============
-document.querySelectorAll('.pillar').forEach(p => {
-  p.addEventListener('click', () => {
-    p.animate(
-      [{ transform:'scale(1)' }, { transform:'scale(0.97)' }, { transform:'scale(1)' }],
-      { duration:220, easing:'ease-out' }
+// ============ PILARES "NOSOTROS" (tarjetas expandibles) ============
+document.querySelectorAll('.pillar').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.pillar-item');
+    const isOpen = item.classList.toggle('open');
+    head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    head.animate(
+      [{ transform:'scale(1)' }, { transform:'scale(0.98)' }, { transform:'scale(1)' }],
+      { duration:180, easing:'ease-out' }
     );
+  });
+});
+
+// ============ MOSAICO DE ÍCONOS "AFTER SCHOOL" ============
+// Al tocar un ícono, se muestra una breve descripción de esa actividad en el
+// recuadro de texto de al lado. Tocarlo de nuevo vuelve al mensaje por defecto.
+const AS_ICON_INFO = {
+  'Hora de tareas': 'Un bloque diario para terminar tareas y trabajos pendientes, con apoyo cercano y respetando el ritmo de cada niño o niña.',
+  'Organización del día': 'Antes de empezar, se revisa junto a los niños y niñas qué actividades toca cada sesión, para que sepan qué esperar.',
+  'Juego libre': 'Momentos de juego libre y recreación, para que el después de clases también sea un tiempo de disfrute.',
+  'Pintura': 'Un rincón de arte donde los niños y niñas exploran la pintura y otras técnicas creativas.',
+  'Manualidades': 'Actividades de manualidades y trabajos creativos con distintos materiales.',
+  'Música': 'Espacio para escuchar y hacer música, como parte del juego y la expresión libre.',
+  'Reconocimientos': 'Se reconoce el esfuerzo y los logros de cada niño y niña dentro del programa.',
+  'El espacio After School': 'El lugar físico donde se desarrolla el programa: un espacio seguro y acogedor dentro del liceo.',
+};
+const AS_ICON_EMOJI = {
+  'Hora de tareas': '✎',
+  'Organización del día': '▦',
+  'Juego libre': '☺',
+  'Pintura': '🎨',
+  'Manualidades': '✂',
+  'Música': '♫',
+  'Reconocimientos': '★',
+  'El espacio After School': '▢',
+};
+const asIconQuoteText = document.getElementById('asIconQuoteText');
+const asIconQuoteIcon = document.getElementById('asIconQuoteIcon');
+const AS_DEFAULT_TEXT = asIconQuoteText ? asIconQuoteText.textContent : '';
+const AS_DEFAULT_ICON = asIconQuoteIcon ? asIconQuoteIcon.textContent : '';
+
+document.querySelectorAll('.as-visual button.as-icon').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const label = btn.getAttribute('aria-label');
+    const wasActive = btn.getAttribute('aria-pressed') === 'true';
+    document.querySelectorAll('.as-visual button.as-icon').forEach(b => b.setAttribute('aria-pressed', 'false'));
+
+    if(wasActive){
+      if(asIconQuoteText) asIconQuoteText.textContent = AS_DEFAULT_TEXT;
+      if(asIconQuoteIcon) asIconQuoteIcon.textContent = AS_DEFAULT_ICON;
+      return;
+    }
+    btn.setAttribute('aria-pressed', 'true');
+    if(asIconQuoteText && AS_ICON_INFO[label]) asIconQuoteText.textContent = AS_ICON_INFO[label];
+    if(asIconQuoteIcon && AS_ICON_EMOJI[label]) asIconQuoteIcon.textContent = AS_ICON_EMOJI[label];
   });
 });
 
@@ -327,8 +375,14 @@ document.querySelectorAll('.step-head').forEach(head => {
   head.addEventListener('click', () => {
     const step = head.closest('.step');
     const wasOpen = step.classList.contains('open');
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('open'));
-    if(!wasOpen) step.classList.add('open');
+    document.querySelectorAll('.step').forEach(s => {
+      s.classList.remove('open');
+      s.querySelector('.step-head')?.setAttribute('aria-expanded', 'false');
+    });
+    if(!wasOpen){
+      step.classList.add('open');
+      head.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 // Abre el primer paso por defecto
@@ -339,8 +393,14 @@ document.querySelectorAll('.as-acc-head').forEach(head => {
   head.addEventListener('click', () => {
     const item = head.closest('.as-acc-item');
     const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.as-acc-item').forEach(i => i.classList.remove('open'));
-    if(!wasOpen) item.classList.add('open');
+    document.querySelectorAll('.as-acc-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.as-acc-head')?.setAttribute('aria-expanded', 'false');
+    });
+    if(!wasOpen){
+      item.classList.add('open');
+      head.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 
@@ -542,6 +602,66 @@ document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closeLightbox();
   if(e.key === 'ArrowRight') showNext();
   if(e.key === 'ArrowLeft') showPrev();
+});
+
+// ---- VISOR DE AFICHES (Avisos) ----
+// Igual en espíritu al lightbox de fotos de arriba (cerrar, ‹ ›, clic afuera,
+// tecla Esc), pero con su propio marcado y estilo para que un afiche nunca
+// se confunda visualmente con una foto de la galería.
+const posterLightbox = document.getElementById('posterLightbox');
+const posterLightboxImg = document.getElementById('posterLightboxImg');
+const posterLightboxCaption = document.getElementById('posterLightboxCaption');
+const posterLightboxClose = document.getElementById('posterLightboxClose');
+const posterLightboxPrev = document.getElementById('posterLightboxPrev');
+const posterLightboxNext = document.getElementById('posterLightboxNext');
+let activePosterList = [];
+let currentPosterIndex = 0;
+
+function openPosterLightbox(list, index){
+  activePosterList = list;
+  currentPosterIndex = index;
+  showPoster(currentPosterIndex);
+  posterLightbox.classList.add('open');
+  posterLightbox.setAttribute('aria-hidden', 'false');
+}
+
+function showPoster(index){
+  const item = activePosterList[index];
+  if(!item) return;
+  posterLightboxImg.src = item.image;
+  posterLightboxImg.alt = item.title || 'Afiche';
+  posterLightboxCaption.textContent = item.title || '';
+  const multi = activePosterList.length > 1;
+  posterLightboxPrev.hidden = !multi;
+  posterLightboxNext.hidden = !multi;
+}
+
+function showNextPoster(){
+  if(!activePosterList.length) return;
+  currentPosterIndex = (currentPosterIndex + 1) % activePosterList.length;
+  showPoster(currentPosterIndex);
+}
+
+function showPrevPoster(){
+  if(!activePosterList.length) return;
+  currentPosterIndex = (currentPosterIndex - 1 + activePosterList.length) % activePosterList.length;
+  showPoster(currentPosterIndex);
+}
+
+posterLightboxNext?.addEventListener('click', (e) => { e.stopPropagation(); showNextPoster(); });
+posterLightboxPrev?.addEventListener('click', (e) => { e.stopPropagation(); showPrevPoster(); });
+
+function closePosterLightbox(){
+  posterLightbox.classList.remove('open');
+  posterLightbox.setAttribute('aria-hidden', 'true');
+}
+posterLightboxClose?.addEventListener('click', closePosterLightbox);
+posterLightbox?.addEventListener('click', (e) => { if(e.target === posterLightbox) closePosterLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!posterLightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closePosterLightbox();
+  if(e.key === 'ArrowRight') showNextPoster();
+  if(e.key === 'ArrowLeft') showPrevPoster();
 });
 
 renderGalleryInto('afterSchoolGallery', AFTER_SCHOOL_GALLERY);
@@ -752,6 +872,9 @@ function renderNewsInto(containerId, list, emptyMessage){
     grid.innerHTML = `<p class="news-empty">${emptyMessage}</p>`;
     return;
   }
+  // Lista de solo los afiches de esta tanda, para poder navegar entre ellos
+  // (‹ ›) dentro del visor sin mezclarlos con los de otra sección.
+  const posterItems = list.filter(i => i.image && i.poster);
   list.forEach(item => {
     const card = document.createElement('article');
     card.className = 'news-card';
@@ -759,8 +882,15 @@ function renderNewsInto(containerId, list, emptyMessage){
     if(item.tag){
       const tagEl = document.createElement('span');
       tagEl.className = 'news-tag' + (item.tag === 'Reconocimiento' ? ' tag-reconocimiento' : item.tag === 'Afiche' ? ' tag-afiche' : '');
-      tagEl.textContent = item.tag;
+      tagEl.innerHTML = (item.tag === 'Afiche' ? '📌 ' : '') + item.tag;
       card.appendChild(tagEl);
+    }
+
+    if(item.isNew){
+      const ribbon = document.createElement('span');
+      ribbon.className = 'news-ribbon';
+      ribbon.textContent = 'Nuevo';
+      card.appendChild(ribbon);
     }
 
     const thumb = document.createElement('div');
@@ -776,10 +906,12 @@ function renderNewsInto(containerId, list, emptyMessage){
         thumb.innerHTML = `<video controls preload="metadata" src="${item.video}"></video>`;
       }
     } else if(item.image && item.poster){
-      // Afiche/póster: se muestra completo (sin recortar) y se puede abrir
-      // en una pestaña nueva para verlo en tamaño real.
+      // Afiche/póster: se muestra completo (sin recortar) y se abre en el
+      // visor de afiches propio del sitio (no en una pestaña nueva del navegador).
       thumb.classList.add('news-thumb--image', 'news-thumb--poster');
-      thumb.innerHTML = `<a href="${item.image}" target="_blank" rel="noopener" aria-label="Ver afiche completo: ${item.title || 'Afiche'}"><img src="${item.image}" alt="${item.title || 'Afiche'}" loading="lazy" onerror="this.closest('.news-thumb').classList.remove('news-thumb--image','news-thumb--poster');this.closest('.news-thumb').textContent='Liceo Gabriela Mistral';"></a>`;
+      const posterIndex = posterItems.indexOf(item);
+      thumb.innerHTML = `<button type="button" class="news-thumb--poster-btn" aria-label="Ver afiche completo: ${item.title || 'Afiche'}"><img src="${item.image}" alt="${item.title || 'Afiche'}" loading="lazy" onerror="this.closest('.news-thumb').classList.remove('news-thumb--image','news-thumb--poster');this.closest('.news-thumb').textContent='Liceo Gabriela Mistral';"></button>`;
+      thumb.querySelector('.news-thumb--poster-btn')?.addEventListener('click', () => openPosterLightbox(posterItems, posterIndex));
     } else if(item.image){
       // Tarjeta con afiche/imagen. Si el archivo no carga, vuelve al
       // bloque de color con el nombre del liceo (igual que antes).
@@ -827,6 +959,11 @@ renderNewsInto('newsGrid', NEWS, 'Todavía no hay noticias publicadas aquí. Mie
 //                 video/avisos/ (créala si no existe):
 //                 Ej: video: 'video/avisos/resumen-actividad.mp4'
 //
+//   isNew -> true / false (opcional). Si es true, la tarjeta muestra una
+//            cinta "Nuevo" en la esquina para destacarla. Úsalo solo en los
+//            avisos más recientes y quítalo (o pon false) cuando ya no sean
+//            noticia, para que la cinta siga significando algo.
+//
 // Si un aviso trae "video", este siempre se muestra por sobre "image".
 // Si no trae ninguno de los dos, la tarjeta se ve igual que antes (bloque
 // de color con el nombre del liceo).
@@ -835,10 +972,10 @@ renderNewsInto('newsGrid', NEWS, 'Todavía no hay noticias publicadas aquí. Mie
 //   { date: '3 sep 2026', title: 'Afiche: Semana de la Familia', text: 'Revisa las actividades especiales de esta semana en After School.', tag: 'Actividad', image: 'img/avisos/afiche-semana-familia.jpg' },
 //   { date: '10 sep 2026', title: 'Así fue nuestra jornada de juegos', text: 'Un breve resumen en video de la última actividad recreativa.', tag: 'Actividad', video: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' },
 const AS_AVISOS = [
-  { date: '1 sep 2026', title: 'Afiche: Bienvenidos a After School', text: 'Un espacio donde niños y niñas potencian memoria, atención, comunicación, gestión de emociones y motricidad a través del juego.', tag: 'Afiche', color: 'g4', image: 'img/avisos/afiche-after-school-1.jpg', poster: true },
-  { date: '1 sep 2026', title: 'Afiche: Aprender y disfrutar juntos', text: 'Después de clases seguimos aprendiendo: las tardes se transforman en nuevas oportunidades para compartir y crecer.', tag: 'Afiche', color: 'g2', image: 'img/avisos/afiche-after-school-2.jpg', poster: true },
-  { date: '1 sep 2026', title: 'Afiche: After School Happy Kids', text: 'Miércoles y jueves te esperamos en un espacio educativo y entretenido donde cada tarde es una nueva oportunidad para aprender, compartir y crecer juntos.', tag: 'Afiche', color: 'g3', image: 'img/avisos/afiche-after-school-3.jpg', poster: true },
-  { date: '1 sep 2026', title: 'Afiche: ¿Quién puede asistir?', text: 'Niños y niñas de 4 a 9 años que no tienen con quién quedarse después del horario de clases. Encuéntranos en el Liceo Bicentenario Gabriela Mistral.', tag: 'Afiche', color: 'g5', image: 'img/avisos/afiche-after-school-4.jpg', poster: true },
+  { date: '1 sep 2026', title: 'Afiche: Bienvenidos a After School', text: 'Un espacio donde niños y niñas potencian memoria, atención, comunicación, gestión de emociones y motricidad a través del juego.', tag: 'Afiche', color: 'g4', image: 'img/avisos/afiche-after-school-1.jpg', poster: true, isNew: true },
+  { date: '1 sep 2026', title: 'Afiche: Aprender y disfrutar juntos', text: 'Después de clases seguimos aprendiendo: las tardes se transforman en nuevas oportunidades para compartir y crecer.', tag: 'Afiche', color: 'g2', image: 'img/avisos/afiche-after-school-2.jpg', poster: true, isNew: true },
+  { date: '1 sep 2026', title: 'Afiche: After School Happy Kids', text: 'Miércoles y jueves te esperamos en un espacio educativo y entretenido donde cada tarde es una nueva oportunidad para aprender, compartir y crecer juntos.', tag: 'Afiche', color: 'g3', image: 'img/avisos/afiche-after-school-3.jpg', poster: true, isNew: true },
+  { date: '1 sep 2026', title: 'Afiche: ¿Quién puede asistir?', text: 'Niños y niñas de 4 a 9 años que no tienen con quién quedarse después del horario de clases. Encuéntranos en el Liceo Bicentenario Gabriela Mistral.', tag: 'Afiche', color: 'g5', image: 'img/avisos/afiche-after-school-4.jpg', poster: true, isNew: true },
 ];
 renderNewsInto('asAvisosGrid', AS_AVISOS, 'Todavía no hay avisos publicados para After School. Cuando haya novedades del programa, aparecerán aquí.');
 
